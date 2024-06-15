@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="backgroundBasePurple">#E3CFF3</color>
+    <color name="fontBaseBlack">#2C2C2C</color>
+    <color name="fontBasePurple">#470064</color>
+    <color name="fontHintBasePurple">#512D7B</color>
+    <color name="buttonBasePurple">#730FC3</color>
+    <color name="backgroundEditTextWhite">#F2F5F7</color>
+
 </resources>
