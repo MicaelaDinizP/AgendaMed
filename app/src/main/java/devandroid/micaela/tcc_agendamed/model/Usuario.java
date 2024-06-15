@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Usuario{
     private String nome;
-    private int id;
+    private int id=0;
     public Usuario(int id, String nome){
         this.id = id;
         this.nome = nome;
