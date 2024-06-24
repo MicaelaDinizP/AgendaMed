@@ -3,8 +3,13 @@ package devandroid.micaela.tcc_agendamed.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,7 @@ public class UsuarioActivity extends AppCompatActivity {
     private Toolbar toolbarTop;
     private Toolbar toolbarBottom;
     private ArrayList<Usuario> listaUsuarios;
+    private TableLayout tabelaUsuarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +38,52 @@ public class UsuarioActivity extends AppCompatActivity {
 
         // carregando o resto da tela
         this.listaUsuarios = new ArrayList<>();
+        tabelaUsuarios = findViewById(R.id.tabela_usuarios);
+
         obterUsuariosCadastrados();
         desenharTabela();
-
 
     }
     //FUNCTIONS DE TABELA
     public void obterUsuariosCadastrados(){
 
-        this.listaUsuarios.add(new Usuario("Micaela Diniz da Silva Pae"));
-        this.listaUsuarios.add(new Usuario("Nicole Diniz da Silva Paes"));
-        this.listaUsuarios.add(new Usuario("MegMeg Diniz da Silva Paes"));
+        this.listaUsuarios.add(new Usuario(1,"Micaela Diniz da Silva Pae"));
+        this.listaUsuarios.add(new Usuario(2,"Nicole Diniz da Silva Paes"));
+        this.listaUsuarios.add(new Usuario(3,"MegMeg Diniz da Silva Pae"));
 
     }
     public void desenharTabela(){
+        for (Usuario usuario : this.listaUsuarios) {
+            desenharLinha(usuario.getNome(), usuario.getId());
+        }
+    }
+    public void desenharLinha(String nome, int id){
+        TableRow row = new TableRow(this);
+        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
+        TextView nomeUsuario = new TextView(this);
+        nomeUsuario.setText(nome);
+        nomeUsuario.setPadding(8, 8, 8, 8);
+        nomeUsuario.setGravity(Gravity.CENTER);
+        nomeUsuario.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+
+        Button botaoEditar = new Button(this);
+        botaoEditar.setText("Editar");
+        botaoEditar.setPadding(8, 8, 8, 8);
+        botaoEditar.setGravity(Gravity.CENTER);
+        botaoEditar.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        botaoEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Ação do botão
+                Toast.makeText(UsuarioActivity.this, "Botão clicado : " + nome, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        row.addView(nomeUsuario);
+        row.addView(botaoEditar);
+
+        this.tabelaUsuarios.addView(row);
     }
 
     //FUNCTIONS DE MENU
