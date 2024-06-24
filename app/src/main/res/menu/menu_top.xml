@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_active_user"
+        android:title="@string/active_user"
+        android:icon="@drawable/ic_active_user_foreground"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_active_user_name"
+        android:title="activeusename"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_space3"
+        android:title="|"
+        android:enabled="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings_foreground"
+        app:showAsAction="always" />
+</menu>

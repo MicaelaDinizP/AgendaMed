@@ -1,0 +1,45 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_users"
+        android:title="@string/users"
+        android:icon="@drawable/ic_users_foreground"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_space1"
+        android:title="@string/menu_item_spacing"
+        android:enabled="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_alarms"
+        android:title="@string/alarms"
+        android:icon="@drawable/ic_alarms_foreground"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_space2"
+        android:title="@string/menu_item_spacing"
+        android:enabled="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_medicines"
+        android:title="@string/medicines"
+        android:icon="@drawable/ic_medicines_foreground"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_space3"
+        android:title="@string/menu_item_spacing"
+        android:enabled="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_manual"
+        android:title="@string/manual"
+        android:icon="@drawable/ic_manual_foreground"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_space4"
+        android:title="@string/menu_item_spacing"
+        android:enabled="false"
+        app:showAsAction="always" />
+</menu>
