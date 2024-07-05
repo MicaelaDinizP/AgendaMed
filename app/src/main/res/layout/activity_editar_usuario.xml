@@ -7,12 +7,12 @@
     android:background="#e9e9e9">
 
     <TextView
-        android:id="@+id/textViewCriarUsuario"
+        android:id="@+id/textViewEditarUsuario"
         android:layout_width="244dp"
         android:layout_height="42dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="28dp"
-        android:text="Criar Usuário"
+        android:text="Editar Usuário"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCriarUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditarUsuario"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="0.89" />
 
@@ -54,11 +54,10 @@
         android:layout_marginBottom="532dp"
         android:background="@color/backgroundBasePurple"
         android:ems="10"
-        android:hint="Seu nome"
         android:inputType="text"
+        android:text="Micaela Diniz da Silva Paes"
         android:paddingLeft="19dp"
         android:textColor="@color/black"
-        android:textColorHint="#5e5e5e"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -73,7 +72,7 @@
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toEndOf="@+id/textViewCriarUsuario"
+        app:layout_constraintStart_toEndOf="@+id/textViewEditarUsuario"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close_foreground" />
 

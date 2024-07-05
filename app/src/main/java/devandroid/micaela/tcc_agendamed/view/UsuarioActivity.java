@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +89,11 @@ public class UsuarioActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UsuarioActivity.this, "Botão clicado : " + nome, Toast.LENGTH_SHORT).show();
+                Usuario usuario = new Usuario(id, nome);
+                Intent intent = new Intent(UsuarioActivity.this, EditarUsuarioActivity.class);
+                intent.putExtra("usuario", (Parcelable) usuario);
+                startActivity(intent);
+               //Toast.makeText(UsuarioActivity.this, "Botão clicado : " + nome, Toast.LENGTH_SHORT).show();
             }
         });
 
