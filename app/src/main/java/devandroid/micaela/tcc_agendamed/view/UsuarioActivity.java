@@ -2,6 +2,8 @@ package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioActivity extends AppCompatActivity {
 
+    private Button btnCriarUsuario;
     private Toolbar toolbarTop;
     private Toolbar toolbarBottom;
     private ArrayList<Usuario> listaUsuarios;
@@ -42,6 +45,16 @@ public class UsuarioActivity extends AppCompatActivity {
 
         obterUsuariosCadastrados();
         desenharTabela();
+
+        //carregando o botão Criar Usuario
+        this.btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
+        this.btnCriarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UsuarioActivity.this, CadastroUsuarioActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     //FUNCTIONS DE TABELA
@@ -75,7 +88,6 @@ public class UsuarioActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ação do botão
                 Toast.makeText(UsuarioActivity.this, "Botão clicado : " + nome, Toast.LENGTH_SHORT).show();
             }
         });
