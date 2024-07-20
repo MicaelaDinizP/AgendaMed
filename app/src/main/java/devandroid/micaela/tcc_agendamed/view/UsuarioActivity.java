@@ -1,6 +1,7 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ListMenuPresenter;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.R;
+import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioActivity extends AppCompatActivity {
@@ -26,13 +29,15 @@ public class UsuarioActivity extends AppCompatActivity {
     private Button btnCriarUsuario;
     private Toolbar toolbarTop;
     private Toolbar toolbarBottom;
-    private ArrayList<Usuario> listaUsuarios;
+    private List<Usuario> listaUsuarios;
     private TableLayout tabelaUsuarios;
+    private UsuarioController usuarioController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario);
-
+        this.usuarioController = new UsuarioController(UsuarioActivity.this);
         //criação da toolbar
         toolbarTop = findViewById(R.id.toolbar_top);
         toolbarBottom = findViewById(R.id.toolbar_bottom);
@@ -40,12 +45,7 @@ public class UsuarioActivity extends AppCompatActivity {
         setSupportActionBar(toolbarTop);
         setupBottomToolbar();
 
-        // carregando o resto da tela
-        this.listaUsuarios = new ArrayList<>();
-        tabelaUsuarios = findViewById(R.id.tabela_usuarios);
-
-        obterUsuariosCadastrados();
-        desenharTabela();
+        this.tabelaUsuarios = findViewById(R.id.tabela_usuarios);
 
         //carregando o botão Criar Usuario
         this.btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
@@ -56,22 +56,35 @@ public class UsuarioActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        limparTabela();
+        this.listaUsuarios = new ArrayList<>();
+        obterUsuariosCadastrados();
+        desenharTabela();
 
     }
+    private void limparTabela() {
+        int childCount = this.tabelaUsuarios.getChildCount();
+        if (childCount > 1) {
+            this.tabelaUsuarios.removeViews(1, childCount - 1);
+        }
+    }
+
     //FUNCTIONS DE TABELA
     public void obterUsuariosCadastrados(){
-
-        this.listaUsuarios.add(new Usuario(1,"Micaela Diniz da Silva Pae"));
-        this.listaUsuarios.add(new Usuario(2,"Nicole Diniz da Silva Paes"));
-        this.listaUsuarios.add(new Usuario(3,"MegMeg Diniz da Silva Pae"));
-
+        this.usuarioController.abrirConexao();
+        this.listaUsuarios = this.usuarioController.obterTodos();
+        this.usuarioController.fecharConexao();
     }
     public void desenharTabela(){
         for (Usuario usuario : this.listaUsuarios) {
             desenharLinha(usuario.getNome(), usuario.getId());
         }
     }
-    public void desenharLinha(String nome, int id){
+    public void desenharLinha(String nome, long id){
         TableRow row = new TableRow(this);
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -93,7 +106,6 @@ public class UsuarioActivity extends AppCompatActivity {
                 Intent intent = new Intent(UsuarioActivity.this, EditarUsuarioActivity.class);
                 intent.putExtra("usuario", (Parcelable) usuario);
                 startActivity(intent);
-               //Toast.makeText(UsuarioActivity.this, "Botão clicado : " + nome, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,9 +125,7 @@ public class UsuarioActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem activeUserName = menu.findItem(R.id.menu_active_user_name);
-        activeUserName.setTitle("Micaela Diniz da Silva Pae");
-
-        //activeUserName.setTitle(MainActivity.USUARIO_LOGADO.getNome()); >pega o que é digitado
+        activeUserName.setTitle(MainActivity.USUARIO_LOGADO.getNome());
         //Aqui define o nome do usuário ativo. Caso seja alterado usar o recreate()
         return super.onPrepareOptionsMenu(menu);
     }

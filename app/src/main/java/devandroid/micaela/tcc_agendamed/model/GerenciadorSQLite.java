@@ -20,7 +20,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
 
     public GerenciadorSQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        context.deleteDatabase(DATABASE_NAME); //apagar base toda
+        //context.deleteDatabase(DATABASE_NAME); //apagar base toda
     }
 
     @Override

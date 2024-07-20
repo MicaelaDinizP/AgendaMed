@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import devandroid.micaela.tcc_agendamed.R;
 
+import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
+    private UsuarioController usuarioController;
     private ImageButton btnFechar;
     private EditText editTextNomeUsuario;
     private ImageButton btnApagar;
@@ -23,6 +25,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_usuario);
+
+        this.usuarioController = new UsuarioController(CadastroUsuarioActivity.this);
 
         this.editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
 
@@ -47,8 +51,16 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CadastroUsuarioActivity.this, "Salvando usuário "+  editTextNomeUsuario.getText() , Toast.LENGTH_SHORT).show();
-                finish();
+                usuarioController.abrirConexao();
+                String nomeUsuario = editTextNomeUsuario.getText().toString();
+                long idRetornado = usuarioController.inserir(nomeUsuario);
+                if(idRetornado != -1){
+                    Toast.makeText(CadastroUsuarioActivity.this, "Usuario "+nomeUsuario+" cadastrado com sucesso!" , Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+
+                }
+                usuarioController.fecharConexao();
             }
         });
     }

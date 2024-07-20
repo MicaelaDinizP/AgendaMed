@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class Usuario implements Parcelable {
     private String nome;
-    private int id = 0;
+    private long id = 0;
 
-    public Usuario(int id, String nome) {
+    public Usuario(long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -16,11 +16,11 @@ public class Usuario implements Parcelable {
     }
 
     // --- Getters & Setters ---
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Usuario implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeString(nome);
     }
 
