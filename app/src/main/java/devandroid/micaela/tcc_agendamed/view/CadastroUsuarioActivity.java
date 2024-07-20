@@ -58,7 +58,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     Toast.makeText(CadastroUsuarioActivity.this, "Usuario "+nomeUsuario+" cadastrado com sucesso!" , Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
-
+                    Toast.makeText(CadastroUsuarioActivity.this, "ERRO: Não foi possível cadastrar o usuario." , Toast.LENGTH_SHORT).show();
                 }
                 usuarioController.fecharConexao();
             }
