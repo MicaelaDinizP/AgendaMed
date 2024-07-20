@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Usuario implements Parcelable {
     private String nome;
-    private long id = 0;
+    private long id = -1;
 
     public Usuario(long id, String nome) {
         this.id = id;
@@ -34,7 +34,7 @@ public class Usuario implements Parcelable {
 
         //Parcelable
     protected Usuario(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         nome = in.readString();
     }
 
