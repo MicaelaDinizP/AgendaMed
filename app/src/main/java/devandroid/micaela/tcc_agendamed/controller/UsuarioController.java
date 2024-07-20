@@ -33,7 +33,7 @@ public class UsuarioController{
         return this.colecaoUsuarios.editar(usuario);
     }
 
-    public int remover(int id) {
+    public int remover(long id) {
         return this.colecaoUsuarios.remover(id);
     }
 

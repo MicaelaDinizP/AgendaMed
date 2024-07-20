@@ -58,7 +58,7 @@ public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
     }
 
     @Override
-    public int remover(int id) {
+    public int remover(long id) {
         return this.bancoDeDados.delete(gerenciadorBancoDeDados.TABLE_NAME, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
     }
 }

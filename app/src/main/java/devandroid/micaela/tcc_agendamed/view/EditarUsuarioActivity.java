@@ -9,10 +9,14 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 import devandroid.micaela.tcc_agendamed.R;
+import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class EditarUsuarioActivity extends AppCompatActivity {
+    private UsuarioController usuarioController;
     private Usuario usuario;
     private ImageButton btnFechar;
     private EditText editTextNomeUsuario;
@@ -27,10 +31,11 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.usuario = intent.getParcelableExtra("usuario");
 
+        this.usuarioController = new UsuarioController(EditarUsuarioActivity.this);
+
         this.editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
 
         this.btnFechar = findViewById(R.id.btnFechar);
-
         this.editTextNomeUsuario.setText(this.usuario.getNome());
         this.btnFechar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +48,15 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditarUsuarioActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
-                finish();
+                usuarioController.abrirConexao();
+                int foiRemovido = usuarioController.remover(usuario.getId());
+                if(foiRemovido != 0) {
+                    Toast.makeText(EditarUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(EditarUsuarioActivity.this, "ERRO: Não foi possível remover o usuário", Toast.LENGTH_SHORT).show();
+                }
+                usuarioController.fecharConexao();
             }
         });
 
