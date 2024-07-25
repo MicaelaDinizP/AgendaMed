@@ -50,7 +50,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 usuarioController.abrirConexao();
                 int foiRemovido = usuarioController.remover(usuario.getId());
-                if(foiRemovido != 0) {
+                if(foiRemovido > 0) {
                     Toast.makeText(EditarUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
@@ -64,8 +64,16 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditarUsuarioActivity.this, "Nome editado: "+  editTextNomeUsuario.getText() , Toast.LENGTH_SHORT).show();
-                finish();
+                usuarioController.abrirConexao();
+                usuario.setNome(editTextNomeUsuario.getText().toString());
+                int foiEditado = usuarioController.editar(usuario);
+                if(foiEditado > 0){
+                    Toast.makeText(EditarUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
+                    finish();
+                }else{
+                    Toast.makeText(EditarUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
+                }
+                usuarioController.fecharConexao();
             }
         });
     }

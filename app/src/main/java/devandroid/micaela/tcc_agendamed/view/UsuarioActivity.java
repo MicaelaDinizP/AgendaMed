@@ -1,7 +1,6 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ListMenuPresenter;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -45,7 +44,7 @@ public class UsuarioActivity extends AppCompatActivity {
         setSupportActionBar(toolbarTop);
         setupBottomToolbar();
 
-        this.tabelaUsuarios = findViewById(R.id.tabela_usuarios);
+        this.tabelaUsuarios = findViewById(R.id.tableUsuarios);
 
         //carregando o botão Criar Usuario
         this.btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
@@ -116,6 +115,15 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     //FUNCTIONS DE MENU
+    private void atualizarUsuarioLogado(Usuario novoUsuarioLogado){
+        //pego o usuario atual
+        //removo o background color dele
+        //adiciono o novoUsuario na variavel estatica
+        //troco a cor do usuario novo pra verde
+        //deixo o botão anterior ativo
+        //deixo o botão atual inativo
+        MainActivity.USUARIO_LOGADO = novoUsuarioLogado;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_top, menu);

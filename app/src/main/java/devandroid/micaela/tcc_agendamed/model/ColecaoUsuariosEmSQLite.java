@@ -54,7 +54,7 @@ public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
         ContentValues values = new ContentValues();
         values.put(gerenciadorBancoDeDados.COLUMN_NAME, usuario.getNome());
 
-        return this.bancoDeDados.update(gerenciadorBancoDeDados.TABLE_NAME, values, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+       return this.bancoDeDados.update(gerenciadorBancoDeDados.TABLE_NAME, values, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
     }
 
     @Override
