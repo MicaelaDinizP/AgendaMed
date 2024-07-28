@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".view.EditarUsuarioActivity">
         </activity>
+        <activity android:name=".view.MedicamentoActivity">
+        </activity>
     </application>
 
 </manifest>

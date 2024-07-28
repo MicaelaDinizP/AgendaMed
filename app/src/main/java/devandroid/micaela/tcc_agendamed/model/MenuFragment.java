@@ -1,5 +1,7 @@
 package devandroid.micaela.tcc_agendamed.model;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import devandroid.micaela.tcc_agendamed.view.MainActivity;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 import devandroid.micaela.tcc_agendamed.R;
+import devandroid.micaela.tcc_agendamed.view.MedicamentoActivity;
+import devandroid.micaela.tcc_agendamed.view.UsuarioActivity;
 
 public class MenuFragment extends Fragment {
     private Toolbar toolbarTop;
@@ -28,6 +32,29 @@ public class MenuFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(this.toolbarTop);
         setupBottomToolbar();
+    }
+
+    public boolean definirAbaEmDestaque(){
+        //inativar o botao da aba atual
+        //colocar a aba atual em destaque
+
+        if(getActivity().getClass().equals(UsuarioActivity.class) ){
+            Toast.makeText(getActivity(), "A aba em destaque será a 'Usuarios'", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+//        if(getActivity().getClass().equals(AlarmeActivity.class) ){
+//            Toast.makeText(getActivity(), "A aba em destaque será a 'Alarmes'", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
+        if(getActivity().getClass().equals(MedicamentoActivity.class) ){
+            Toast.makeText(getActivity(), "A aba em destaque será a 'Medicamentos'", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+//        if(getActivity().getClass().equals(ManualActivity.class) ){
+//            Toast.makeText(getActivity(), "A aba em destaque será a 'Manual'", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
+        return false;
     }
     private void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
             //pego o usuario atual
@@ -72,6 +99,7 @@ public class MenuFragment extends Fragment {
     }
     private void setupBottomToolbar() {
         this.toolbarBottom.inflateMenu(R.menu.menu_bottom);
+
         this.toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -85,7 +113,8 @@ public class MenuFragment extends Fragment {
                     return true;
                 }
                 if (id == R.id.menu_medicines) {
-                    Toast.makeText(getActivity(), "Bottom Toolbar MEDICINES clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), MedicamentoActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 if (id == R.id.menu_manual) {

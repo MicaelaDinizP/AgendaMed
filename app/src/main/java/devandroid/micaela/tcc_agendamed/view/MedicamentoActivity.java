@@ -1,0 +1,31 @@
+package devandroid.micaela.tcc_agendamed.view;
+
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import devandroid.micaela.tcc_agendamed.R;
+import devandroid.micaela.tcc_agendamed.model.MenuFragment;
+
+public class MedicamentoActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_medicamento);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(new MenuFragment(), "MENU_FRAGMENT")
+                    .commitNow();
+        }
+        MenuFragment menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU_FRAGMENT");
+        if (menuFragment != null) {
+            menuFragment.definirAbaEmDestaque();
+        } else {
+            Toast.makeText(this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+}
