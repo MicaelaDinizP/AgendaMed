@@ -1,5 +1,7 @@
 package devandroid.micaela.tcc_agendamed.model;
 
+import static android.content.Intent.getIntent;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -60,14 +63,11 @@ public class MenuFragment extends Fragment {
         itemMenu.setIconTintList(colorStateList);
         return true;
     }
-    private void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
-            //pego o usuario atual
-            //removo o background color dele
-            //adiciono o novoUsuario na variavel estatica
-            //troco a cor do usuario novo pra verde
-            //deixo o botão anterior ativo
-            //deixo o botão atual inativo
-            //MainActivity.USUARIO_LOGADO = novoUsuarioLogado;
+    public void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
+        MainActivity.USUARIO_LOGADO = novoUsuarioLogado;
+        Intent intent = getActivity().getIntent();
+        getActivity().finish();
+        startActivity(intent);
     }
 
     @Override

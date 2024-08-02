@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ import devandroid.micaela.tcc_agendamed.model.MenuFragment;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioActivity extends AppCompatActivity {
+    private MenuFragment menuFragment;
     private Button btnCriarUsuario;
     private List<Usuario> listaUsuarios;
     private TableLayout tabelaUsuarios;
@@ -41,16 +44,10 @@ public class UsuarioActivity extends AppCompatActivity {
                     .add(new MenuFragment(), "MENU_FRAGMENT")
                     .commitNow();
         }
-//        MenuFragment menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU_FRAGMENT");
-//        if (menuFragment != null) {
-//            menuFragment.definirAbaEmDestaque();
-//        } else {
-//            Toast.makeText(this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
-//        }
+        menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU_FRAGMENT");
 
         this.tabelaUsuarios = findViewById(R.id.tableUsuarios);
 
-        //carregando o botão Criar Usuario
         this.btnCriarUsuario = findViewById(R.id.btnCriarUsuario);
         this.btnCriarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +85,26 @@ public class UsuarioActivity extends AppCompatActivity {
         }
     }
     public void desenharLinha(String nome, long id){
+        Usuario usuario = new Usuario(id, nome);
         TableRow row = new TableRow(this);
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         TextView nomeUsuario = new TextView(this);
+        nomeUsuario.setId(View.generateViewId());
         nomeUsuario.setText(nome);
         nomeUsuario.setPadding(8, 8, 8, 8);
         nomeUsuario.setGravity(Gravity.CENTER);
         nomeUsuario.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        nomeUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (menuFragment != null) {
+                    menuFragment.atualizarUsuarioLogado(usuario);
+                } else {
+                    Toast.makeText(UsuarioActivity.this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         Button botaoEditar = new Button(this);
         botaoEditar.setText("Editar");
@@ -105,13 +114,18 @@ public class UsuarioActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Usuario usuario = new Usuario(id, nome);
                 Intent intent = new Intent(UsuarioActivity.this, EditarUsuarioActivity.class);
                 intent.putExtra("usuario", (Parcelable) usuario);
                 startActivity(intent);
             }
         });
 
+        if(usuario.getId() == MainActivity.USUARIO_LOGADO.getId()){
+            nomeUsuario.setEnabled(false);
+            nomeUsuario.setTextColor(Color.parseColor("#000000"));
+            nomeUsuario.setTypeface(nomeUsuario.getTypeface(), Typeface.BOLD);
+            nomeUsuario.setBackgroundColor(Color.parseColor("#BDECB6"));
+        }
         row.addView(nomeUsuario);
         row.addView(botaoEditar);
 
