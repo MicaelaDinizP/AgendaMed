@@ -2,6 +2,8 @@ package devandroid.micaela.tcc_agendamed.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,9 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import devandroid.micaela.tcc_agendamed.view.AlarmeActivity;
 import devandroid.micaela.tcc_agendamed.view.MainActivity;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 import devandroid.micaela.tcc_agendamed.R;
+import devandroid.micaela.tcc_agendamed.view.ManualActivity;
 import devandroid.micaela.tcc_agendamed.view.MedicamentoActivity;
 import devandroid.micaela.tcc_agendamed.view.UsuarioActivity;
 
@@ -34,27 +38,27 @@ public class MenuFragment extends Fragment {
         setupBottomToolbar();
     }
 
-    public boolean definirAbaEmDestaque(){
-        //inativar o botao da aba atual
-        //colocar a aba atual em destaque
+    private boolean definirAbaEmDestaque(){
 
+        Menu menu = this.toolbarBottom.getMenu();
+        MenuItem itemMenu = null;
+        ColorStateList colorStateList = ColorStateList.valueOf(Color.parseColor("#800080"));
         if(getActivity().getClass().equals(UsuarioActivity.class) ){
-            Toast.makeText(getActivity(), "A aba em destaque será a 'Usuarios'", Toast.LENGTH_SHORT).show();
-            return true;
+            itemMenu = menu.findItem(R.id.menu_users);
         }
-//        if(getActivity().getClass().equals(AlarmeActivity.class) ){
-//            Toast.makeText(getActivity(), "A aba em destaque será a 'Alarmes'", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
+        if(getActivity().getClass().equals(AlarmeActivity.class) ){
+            itemMenu = menu.findItem(R.id.menu_alarms);
+        }
         if(getActivity().getClass().equals(MedicamentoActivity.class) ){
-            Toast.makeText(getActivity(), "A aba em destaque será a 'Medicamentos'", Toast.LENGTH_SHORT).show();
-            return true;
+            itemMenu = menu.findItem(R.id.menu_medicines);
         }
-//        if(getActivity().getClass().equals(ManualActivity.class) ){
-//            Toast.makeText(getActivity(), "A aba em destaque será a 'Manual'", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-        return false;
+        if(getActivity().getClass().equals(ManualActivity.class) ){
+            itemMenu = menu.findItem(R.id.menu_manual);
+        }
+
+        itemMenu.setEnabled(false);
+        itemMenu.setIconTintList(colorStateList);
+        return true;
     }
     private void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
             //pego o usuario atual
@@ -100,16 +104,19 @@ public class MenuFragment extends Fragment {
     private void setupBottomToolbar() {
         this.toolbarBottom.inflateMenu(R.menu.menu_bottom);
 
+        this.definirAbaEmDestaque();
         this.toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.menu_users) {
-                    Toast.makeText(getActivity(), "Bottom Toolbar USERS clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), UsuarioActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 if (id == R.id.menu_alarms) {
-                    Toast.makeText(getActivity(), "Bottom Toolbar ALARMS clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), AlarmeActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 if (id == R.id.menu_medicines) {
@@ -118,7 +125,8 @@ public class MenuFragment extends Fragment {
                     return true;
                 }
                 if (id == R.id.menu_manual) {
-                    Toast.makeText(getActivity(), "Bottom Toolbar MANUAL clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), ManualActivity.class);
+                    startActivity(intent);
                     return true;
                 }
                 return false;

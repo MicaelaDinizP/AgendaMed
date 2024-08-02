@@ -39,8 +39,14 @@ public class UsuarioActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(new MenuFragment(), "MENU_FRAGMENT")
-                    .commit();
+                    .commitNow();
         }
+//        MenuFragment menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU_FRAGMENT");
+//        if (menuFragment != null) {
+//            menuFragment.definirAbaEmDestaque();
+//        } else {
+//            Toast.makeText(this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
+//        }
 
         this.tabelaUsuarios = findViewById(R.id.tableUsuarios);
 

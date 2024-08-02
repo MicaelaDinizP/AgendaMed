@@ -20,12 +20,5 @@ public class MedicamentoActivity extends AppCompatActivity {
                     .add(new MenuFragment(), "MENU_FRAGMENT")
                     .commitNow();
         }
-        MenuFragment menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag("MENU_FRAGMENT");
-        if (menuFragment != null) {
-            menuFragment.definirAbaEmDestaque();
-        } else {
-            Toast.makeText(this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
-
-        }
     }
 }
