@@ -63,13 +63,6 @@ public class MenuFragment extends Fragment {
         itemMenu.setIconTintList(colorStateList);
         return true;
     }
-    public void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
-        MainActivity.USUARIO_LOGADO = novoUsuarioLogado;
-        Intent intent = getActivity().getIntent();
-        getActivity().finish();
-        startActivity(intent);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_top, menu);

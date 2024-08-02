@@ -64,16 +64,20 @@ public class UsuarioActivity extends AppCompatActivity {
         this.listaUsuarios = new ArrayList<>();
         obterUsuariosCadastrados();
         desenharTabela();
-
     }
+    private void atualizarUsuarioLogado(Usuario novoUsuarioLogado) {
+        MainActivity.USUARIO_LOGADO = novoUsuarioLogado;
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
     private void limparTabela() {
         int childCount = this.tabelaUsuarios.getChildCount();
         if (childCount > 1) {
             this.tabelaUsuarios.removeViews(1, childCount - 1);
         }
     }
-
-    //FUNCTIONS DE TABELA
     public void obterUsuariosCadastrados(){
         this.usuarioController.abrirConexao();
         this.listaUsuarios = this.usuarioController.obterTodos();
@@ -98,11 +102,7 @@ public class UsuarioActivity extends AppCompatActivity {
         nomeUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (menuFragment != null) {
-                    menuFragment.atualizarUsuarioLogado(usuario);
-                } else {
-                    Toast.makeText(UsuarioActivity.this, "FragmentoNãoEncontrado", Toast.LENGTH_SHORT).show();
-                }
+                atualizarUsuarioLogado(usuario);
             }
         });
 
