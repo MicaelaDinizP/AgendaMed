@@ -48,6 +48,10 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MainActivity.USUARIO_LOGADO.getId() == usuario.getId()){
+                    Toast.makeText(EditarUsuarioActivity.this, "ERRO: Não é possível excluir o usuario ativo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 usuarioController.abrirConexao();
                 int foiRemovido = usuarioController.remover(usuario.getId());
                 if(foiRemovido > 0) {
