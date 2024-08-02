@@ -29,6 +29,10 @@
         </activity>
         <activity android:name=".view.MedicamentoActivity">
         </activity>
+        <activity android:name=".view.AlarmeActivity">
+        </activity>
+        <activity android:name=".view.ManualActivity">
+        </activity>
     </application>
 
 </manifest>
