@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -32,7 +33,6 @@ public class UsuarioActivity extends AppCompatActivity {
     private List<Usuario> listaUsuarios;
     private TableLayout tabelaUsuarios;
     private UsuarioController usuarioController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +74,8 @@ public class UsuarioActivity extends AppCompatActivity {
 
     private void limparTabela() {
         int childCount = this.tabelaUsuarios.getChildCount();
-        if (childCount > 1) {
-            this.tabelaUsuarios.removeViews(1, childCount - 1);
+        if (childCount > 0) {
+            this.tabelaUsuarios.removeViews(0, childCount);
         }
     }
     public void obterUsuariosCadastrados(){
@@ -120,15 +120,20 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
 
+        row.addView(nomeUsuario);
+        row.addView(botaoEditar);
+
+        this.tabelaUsuarios.addView(row);
         if(usuario.getId() == MainActivity.USUARIO_LOGADO.getId()){
             nomeUsuario.setEnabled(false);
             nomeUsuario.setTextColor(Color.parseColor("#000000"));
             nomeUsuario.setTypeface(nomeUsuario.getTypeface(), Typeface.BOLD);
             nomeUsuario.setBackgroundColor(Color.parseColor("#BDECB6"));
+            moverLinhaParaTopo(row);
         }
-        row.addView(nomeUsuario);
-        row.addView(botaoEditar);
-
-        this.tabelaUsuarios.addView(row);
+    }
+    private void moverLinhaParaTopo(TableRow row) {
+        this.tabelaUsuarios.removeView(row);
+        this.tabelaUsuarios.addView(row, 0);
     }
 }
