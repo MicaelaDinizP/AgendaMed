@@ -1,7 +1,6 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,15 +8,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,8 +117,8 @@ public class UsuarioActivity extends AppCompatActivity {
 
         row.addView(nomeUsuario);
         row.addView(botaoEditar);
-
         this.tabelaUsuarios.addView(row);
+
         if(usuario.getId() == MainActivity.USUARIO_LOGADO.getId()){
             nomeUsuario.setEnabled(false);
             nomeUsuario.setTextColor(Color.parseColor("#000000"));
