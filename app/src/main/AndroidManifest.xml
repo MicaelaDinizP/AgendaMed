@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".view.ManualActivity">
         </activity>
+        <activity android:name=".view.CadastrarMedicamentoActivity">
+        </activity>
     </application>
-
 </manifest>

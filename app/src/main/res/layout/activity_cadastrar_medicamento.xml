@@ -1,0 +1,436 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9e9e9">
+
+    <TextView
+        android:id="@+id/textViewCadastrarMedicamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Cadastrar Medicamento"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnFechar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintBottom_toTopOf="@+id/dividerTop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toEndOf="@+id/textViewCadastrarMedicamento"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_foreground" />
+
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/buttonBasePurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewCadastrarMedicamento" />
+
+    <ScrollView
+        android:id="@+id/scrllFormMedicamento"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/dividerBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dividerTop"
+        app:layout_constraintVertical_bias="1.0">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:padding="16dp"
+            android:rowCount="5"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/textViewDigiteNomeMedicamento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill"
+                android:gravity="center"
+                android:text="Nome do Medicamento"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/editTextNomeUsuario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/backgroundBasePurple"
+                android:hint="ex: Medicamento ParaDor - X mg"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="#5e5e5e" />
+
+            <TextView
+                android:id="@+id/textViewDigiteDoses"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Doses por Embalagem"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewMarcarDiasSemana"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:paddingTop="9dp"
+                android:text="Dias da Semana"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextDosesPorEmbalagem"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:background="@color/backgroundBasePurple"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="#5e5e5e"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_rowSpan="3"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaSegunda"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Segunda-feira"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaTerca"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Terça-feira"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaQuarta"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Quarta-feira"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaQuinta"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Quinta-feira"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaSexta"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Sexta-feira"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaSabado"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Sábado"
+                    android:textSize="16sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxDiaDomingo"
+                    android:layout_width="145dp"
+                    android:layout_height="27dp"
+                    android:text="Domingo"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewDigiteDosesPorDia"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="Doses por dia"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextDosesPorDia"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                android:background="@color/backgroundBasePurple"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="0"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="#5e5e5e"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textViewHorarioDasDoses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Horário das doses"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="21sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="#e9e9e9"
+                android:padding="16dp"
+                android:stretchColumns="1">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="Dose 1"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="08:00 AM"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="Dose 2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="12:00 PM"
+                        android:textSize="20sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textViewDigiteEstoqueCritico"
+                android:layout_width="160dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="Estoque crítico"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewDigiteDosesRestantes"
+                android:layout_width="160dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="Doses Restantes"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextEstoqueCritico"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:background="@color/backgroundBasePurple"
+                android:ems="10"
+                android:hint="0"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="#5e5e5e"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/editTextDosesRestantes"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:background="@color/backgroundBasePurple"
+                android:ems="10"
+                android:hint="0"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="#5e5e5e"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textViewAjustesAdicionais"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="fill"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Ajustes Adicionais"
+                android:textStyle="bold"
+                android:textColor="@color/fontBaseBlack"
+                android:textSize="21sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxPausarUso"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Pausar Uso"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxCriarAlarme"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Criar Alarmes"
+                android:textSize="18sp" />
+
+        </GridLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/dividerBottom"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="155dp"
+        android:background="@color/buttonBasePurple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewBtnApagar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="36dp"
+        android:text="Apagar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextBtnSalvar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnApagar"
+        android:layout_width="87dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewBtnApagar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerBottom"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_delete_foreground" />
+
+    <TextView
+        android:id="@+id/editTextBtnSalvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="36dp"
+        android:text="Salvar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnSalvar"
+        android:layout_width="88dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextBtnSalvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnApagar"
+        app:layout_constraintTop_toBottomOf="@+id/dividerBottom"
+        app:layout_constraintVertical_bias="0.1"
+        app:srcCompat="@drawable/ic_save_foreground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
