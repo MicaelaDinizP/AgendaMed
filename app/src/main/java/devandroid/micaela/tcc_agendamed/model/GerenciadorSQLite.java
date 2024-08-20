@@ -3,37 +3,39 @@ package devandroid.micaela.tcc_agendamed.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TableLayout;
 
 public class GerenciadorSQLite extends SQLiteOpenHelper {
 
-// FALTA ADICIONAR AS CONSTRAINTS DE CHAVE ESTRANGEIRA E SUAS CLAUSULAS ON DELETE E UPDATE
     private static final String DATABASE_NAME = "teste_agendamed.db";
     private static final int DATABASE_VERSION = 1;
 
     //Tabelas
     public static final String TABLE_USUARIO = "usuario";
-    private static final String TABLE_MEDICAMENTO = "medicamento";
-    private static final String TABLE_HORARIOS_DOSES = "horarios_doses";
-    private static final String TABLE_DIA_DA_SEMANA = "dia_da_semana";
-    private static final String TABLE_MANUAL = "manual";
+    public static final String TABLE_MEDICAMENTO = "medicamento";
+    public static final String TABLE_HORARIOS_DOSES = "horarios_doses";
+    public static final String TABLE_DIA_DA_SEMANA = "dia_da_semana";
+    public static final String TABLE_MEDICAMENTO_DIA_DA_SEMANA = "medicamento_dia_da_semana";
+    public static final String TABLE_MANUAL = "manual";
 
     //Colunas
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NOME = "nome";
-    private static final String COLUMN_QUANTIDADE_DOSES = "quantidade_doses";
-    private static final String COLUMN_DIA_DA_SEMANA_ID = "dia_da_semana";
-    private static final String COLUMN_DOSES_POR_DIA = "doses_por_dia";
-    private static final String COLUMN_QUANTIDADE_ESTOQUE_CRITICO = "quantidade_estoque_critico";
-    private static final String COLUMN_QUANTIDADE_DOSES_RESTANTES = "quantidade_doses_restantes";
-    private static final String COLUMN_USO_PAUSADO = "uso_pausado";
-    private static final String COLUMN_CRIAR_ALARMES = "criar_alarmes";
-    private static final String COLUMN_MEDICAMENTO_ID = "medicamento_id";
-    private static final String COLUMN_HORARIO = "horario";
-    private static final String COLUMN_DIA_DA_SEMANA = "dia_da_semana";
-    private static final String COLUMN_USUARIO_ID = "usuario_id";
-    private static final String COLUMN_ALARME_ATIVO = "alarme_ativo";
-    private static final String COLUMN_PERGUNTA = "pergunta";
-    private static final String COLUMN_CONTEUDO = "conteudo";
+    public static final String COLUMN_QUANTIDADE_DOSES = "quantidade_doses";
+    public static final String COLUMN_DIA_DA_SEMANA_ID = "dia_da_semana_id";
+    public static final String COLUMN_DOSES_POR_DIA = "doses_por_dia";
+    public static final String COLUMN_QUANTIDADE_ESTOQUE_CRITICO = "quantidade_estoque_critico";
+    public static final String COLUMN_QUANTIDADE_DOSES_RESTANTES = "quantidade_doses_restantes";
+    public static final String COLUMN_USO_PAUSADO = "uso_pausado";
+    public static final String COLUMN_CRIAR_ALARMES = "criar_alarmes";
+    public static final String COLUMN_MEDICAMENTO_ID = "medicamento_id";
+    public static final String COLUMN_HORARIO = "horario";
+    public static final String COLUMN_DIA_DA_SEMANA = "dia_da_semana";
+    public static final String COLUMN_USUARIO_ID = "usuario_id";
+    public static final String COLUMN_ALARME_ATIVO = "alarme_ativo";
+    public static final String COLUMN_PERGUNTA = "pergunta";
+    public static final String COLUMN_CONTEUDO = "conteudo";
+
     private static final String TABLE_DIA_DA_SEMANA_CREATE = "CREATE TABLE "+ TABLE_DIA_DA_SEMANA+ "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_DIA_DA_SEMANA + "TEXT NOT NULL UNIQUE);";
@@ -43,21 +45,19 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
                     COLUMN_NOME + " TEXT NOT NULL, " +
                     COLUMN_USUARIO_ID + "INTEGER NOT NULL ," +
                     COLUMN_QUANTIDADE_DOSES + " INTEGER NOT NULL, " +
-                    COLUMN_DIA_DA_SEMANA_ID + " TEXT, " +
                     COLUMN_DOSES_POR_DIA + " INTEGER NOT NULL, " +
                     COLUMN_QUANTIDADE_ESTOQUE_CRITICO + " INTEGER NOT NULL, " +
                     COLUMN_QUANTIDADE_DOSES_RESTANTES + " INTEGER NOT NULL, " +
                     COLUMN_USO_PAUSADO + " INTEGER DEFAULT 0, " +
                     COLUMN_CRIAR_ALARMES + " INTEGER DEFAULT 0, " +
                     COLUMN_ALARME_ATIVO + "INTEGER DEFAULT 0," +
-                    "FOREIGN KEY (" + COLUMN_DIA_DA_SEMANA_ID + ") REFERENCES " + TABLE_DIA_DA_SEMANA + "(" + COLUMN_ID + ") ON DELETE SET NULL, "+
                     "FOREIGN KEY (" + COLUMN_USUARIO_ID + ") REFERENCES " + TABLE_USUARIO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
 
     private static final String TABLE_HORARIOS_DOSES_CREATE =
             "CREATE TABLE " + TABLE_HORARIOS_DOSES + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_MEDICAMENTO_ID + " INTEGER, " +
-                    COLUMN_HORARIO + " TEXT NOT NULL, " +
+                    COLUMN_HORARIO + " TEXT NOT NULL, " + //HH:MM:SS
                     "FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID + ") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
 
     private static final String TABLE_USUARIO_CREATE =
@@ -67,8 +67,16 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
     private static final String TABLE_MANUAL_CREATE =
             "CREATE TABLE " + TABLE_MANUAL + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_PERGUNTA + " TEXT UNIQUE NOT NULL)" +
-                    COLUMN_CONTEUDO + "TEXT NOT NULL;";
+                    COLUMN_PERGUNTA + " TEXT UNIQUE NOT NULL, " +
+                    COLUMN_CONTEUDO + " TEXT NOT NULL);";
+
+    private static final String TABLE_MEDICAMENTO_DIA_DA_SEMANA_CREATE =
+            "CREATE TABLE " + TABLE_MEDICAMENTO_DIA_DA_SEMANA + "(" +
+                    COLUMN_MEDICAMENTO_ID + " INTEGER NOT NULL, " +
+                    COLUMN_DIA_DA_SEMANA_ID + "INTEGER NOT NULL, " +
+                    "PRIMARY KEY (" + COLUMN_MEDICAMENTO_ID + "," + COLUMN_DIA_DA_SEMANA_ID + " ), " +
+                    "FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID +") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
+                    "FOREIGN KEY (" + COLUMN_DIA_DA_SEMANA_ID +") REFERENCES " + TABLE_DIA_DA_SEMANA + "(" + COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE);";
 
     public GerenciadorSQLite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -81,6 +89,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
         db.execSQL(TABLE_USUARIO_CREATE);
         db.execSQL(TABLE_DIA_DA_SEMANA_CREATE);
         db.execSQL(TABLE_MEDICAMENTO_CREATE);
+        db.execSQL(TABLE_MEDICAMENTO_DIA_DA_SEMANA_CREATE);
         db.execSQL(TABLE_HORARIOS_DOSES_CREATE);
         this.inserirDadosIniciais(db);
     }
@@ -92,6 +101,8 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
         banco.execSQL("DROP TABLE IF EXISTS " + TABLE_DIA_DA_SEMANA);
         banco.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDICAMENTO);
         banco.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIO);
+        banco.execSQL("DROP TABLE IF EXISTS " + TABLE_MEDICAMENTO_DIA_DA_SEMANA);
+
         onCreate(banco);
     }
 
