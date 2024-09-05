@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+
         editNomeUsuarioInicial = findViewById(R.id.editNomeUsuarioInicial);
 
         this.usuarioController = new UsuarioController(MainActivity.this);
@@ -36,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
                 usuarioController.abrirConexao();
                 long idUsuarioInicial = usuarioController.inserir(USUARIO_LOGADO.getNome());
                 if(idUsuarioInicial == -1){
-                    Toast.makeText(MainActivity.this, "ERRO: Falha ao cadastrar o usuário inicial.", Toast.LENGTH_LONG).show();
-
+                    exibirMensagem("ERRO: Falha ao cadastrar o usuário inicial.");
                 }else{
                     USUARIO_LOGADO.setId(idUsuarioInicial);
-                    Toast.makeText(MainActivity.this, "O usuário: '"+USUARIO_LOGADO.getNome()+"' foi cadastrado!", Toast.LENGTH_LONG).show();
+                    exibirMensagem("O usuário: '"+USUARIO_LOGADO.getNome()+"' foi cadastrado!");
                     Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
                     startActivity(intent);
                  }
@@ -48,5 +48,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void exibirMensagem(String mensagem){
+        Toast.makeText(MainActivity.this, "" + mensagem + "" , Toast.LENGTH_SHORT).show();
     }
 }
