@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,5 +131,8 @@ public class UsuarioActivity extends AppCompatActivity {
     private void moverLinhaParaTopo(TableRow row) {
         this.tabelaUsuarios.removeView(row);
         this.tabelaUsuarios.addView(row, 0);
+    }
+    public void exibirMensagem(String mensagem){
+        Toast.makeText(UsuarioActivity.this, "" + mensagem + "" , Toast.LENGTH_SHORT).show();
     }
 }
