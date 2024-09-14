@@ -60,11 +60,16 @@ public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
         }
     }
     @Override
-    public int editar(Usuario usuario) {
+    public boolean editar(Usuario usuario) {
         ContentValues values = new ContentValues();
         try{
+            int linhasAfetadas = 0;
             values.put(gerenciadorBancoDeDados.COLUMN_NOME, usuario.getNome());
-            return this.bancoDeDados.update(gerenciadorBancoDeDados.TABLE_USUARIO, values, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+            linhasAfetadas = this.bancoDeDados.update(gerenciadorBancoDeDados.TABLE_USUARIO, values, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+            if(linhasAfetadas > 0){
+                return true;
+            }
+            return false;
         }catch(SQLException e){
             throw new ColecaoUsuariosException("Não foi possível editar o registro: " + e.getMessage(), e);
         }

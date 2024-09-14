@@ -49,8 +49,8 @@ public class UsuarioController{
         return usuarios;
     }
 
-    public int editar(Usuario usuario) {
-        int foiEditado = -1;
+    public boolean editar(Usuario usuario) {
+        boolean foiEditado = false;
         try{
             foiEditado = this.colecaoUsuarios.editar(usuario);
         }catch(ColecaoUsuariosException e){

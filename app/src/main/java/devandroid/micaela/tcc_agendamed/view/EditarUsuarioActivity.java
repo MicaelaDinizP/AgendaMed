@@ -70,8 +70,8 @@ public class EditarUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 usuarioController.abrirConexao();
                 usuario.setNome(editTextNomeUsuario.getText().toString());
-                int foiEditado = usuarioController.editar(usuario);
-                if(foiEditado > 0){
+                boolean foiEditado = usuarioController.editar(usuario);
+                if(foiEditado == true){
                     Toast.makeText(EditarUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
                     finish();
                 }else{
