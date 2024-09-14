@@ -28,8 +28,8 @@ public class MedicamentoActivity extends AppCompatActivity {
         this.criarMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MedicamentoActivity.this, CadastroMedicamentoActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MedicamentoActivity.this, CadastroMedicamentoActivity.class);
+                //çstartActivity(intent);
             }
         });
     }
