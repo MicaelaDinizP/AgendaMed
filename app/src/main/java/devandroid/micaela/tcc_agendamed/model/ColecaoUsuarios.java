@@ -6,8 +6,8 @@ import devandroid.micaela.tcc_agendamed.exception.ColecaoUsuariosException;
 
 public interface ColecaoUsuarios {
     long inserir(String nome) throws ColecaoUsuariosException;
-    public List<Usuario> obterTodos() throws ColecaoUsuariosException;
-    public boolean editar(Usuario usuario) throws ColecaoUsuariosException;
-    public int remover(long id) throws ColecaoUsuariosException;
+    List<Usuario> obterTodos() throws ColecaoUsuariosException;
+    boolean editar(Usuario usuario) throws ColecaoUsuariosException;
+    int remover(long id) throws ColecaoUsuariosException;
 
 }
