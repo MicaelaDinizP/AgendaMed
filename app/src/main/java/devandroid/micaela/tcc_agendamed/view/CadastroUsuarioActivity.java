@@ -54,7 +54,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 usuarioController.abrirConexao();
                 String nomeUsuario = editTextNomeUsuario.getText().toString();
                 long idRetornado = usuarioController.inserir(nomeUsuario);
-                if(idRetornado != -1){
+                if(idRetornado >0){
                     Toast.makeText(CadastroUsuarioActivity.this, "Usuario "+nomeUsuario+" cadastrado com sucesso!" , Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
