@@ -1,10 +1,9 @@
 package devandroid.micaela.tcc_agendamed.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Medicamento {
-    private int id = -1;
+    private long id = -1;
     private String nomeMedicamento;
     private Usuario usuario;
     private int quantidadeDosesPorEmbalagem;
@@ -16,7 +15,10 @@ public class Medicamento {
     private boolean usoPausado = false;
     private boolean criarAlarmes = false;
     private boolean alarmeAtivo = false;
-
+    public Medicamento(long id, String nomeMedicamento){
+        this.nomeMedicamento = nomeMedicamento;
+        this.id = id;
+    }
     public Medicamento(String nomeMedicamento, Usuario usuario, int quantidadeDosesPorEmbalagem, List<DiaDaSemana> diasDaSemana,int dosesPorDia,
                        int quantidadeEstoqueCritico, int quantidadeDosesRestantes, boolean usoPausado, boolean criarAlarmes,
                        boolean alarmeAtivo, List<String>listaHorarios){
@@ -24,7 +26,7 @@ public class Medicamento {
         this.nomeMedicamento = nomeMedicamento;
         this.usuario = usuario;
         this.quantidadeDosesPorEmbalagem = quantidadeDosesPorEmbalagem;
-        this.diasDaSemana = this.diasDaSemana;
+        this.diasDaSemana = diasDaSemana;
         this.dosesPorDia = dosesPorDia;
         this.quantidadeEstoqueCritico = quantidadeEstoqueCritico;
         this.quantidadeDosesRestantes = quantidadeDosesRestantes;
@@ -35,10 +37,10 @@ public class Medicamento {
     }
 
     //Getters & Setters
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public String getNomeMedicamento() {

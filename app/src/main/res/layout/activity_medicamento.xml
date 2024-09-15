@@ -22,26 +22,52 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TableLayout
-        android:id="@+id/tableMedicamentos"
+        android:id="@+id/tableCamposMedicamento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
         <TableRow>
-
             <TextView
-                android:id="@+id/textViewMedRegistroAusente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="Não há medicamentos cadastrados."
-                android:textStyle="italic"
-                android:gravity="center"
-                android:textSize="18sp"
-                />
+                android:text="Medicamentos" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar"
+                android:padding="8dp" />
         </TableRow>
-
     </TableLayout>
+    <ScrollView
+        android:id="@+id/scrllMedicamentos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TableLayout
+            android:id="@+id/tableMedicamentos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+            <TableRow
+                android:id="@+id/rowTitulos">
+
+                <TextView
+                    android:id="@+id/textViewMedRegistroAusente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="Não há medicamentos cadastrados."
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    />
+
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btnCriarMedicamento"
@@ -57,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="35dp"
         android:text="Repor Medicamento"
         android:enabled="false"
         android:textSize="16sp" />

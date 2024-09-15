@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ColecaoMedicamentos {
         long inserir(Medicamento medicamento);
-        public List<Medicamento> obterTodos();
-        public Medicamento obter(long id);
-        public int editar(Medicamento medicamento);
-        public int remover(long id);
+        public List<Medicamento> obterTodos(Usuario usuario);
+        public Medicamento obter(long id, Usuario usuario);
+        public boolean editar(Medicamento medicamento);
+        public boolean remover(long id);
 }
