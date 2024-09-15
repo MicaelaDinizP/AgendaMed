@@ -53,8 +53,8 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                     return;
                 }
                 usuarioController.abrirConexao();
-                int foiRemovido = usuarioController.remover(usuario.getId());
-                if(foiRemovido > 0) {
+                boolean foiRemovido = usuarioController.remover(usuario.getId());
+                if(foiRemovido) {
                     Toast.makeText(EditarUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
@@ -71,7 +71,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                 usuarioController.abrirConexao();
                 usuario.setNome(editTextNomeUsuario.getText().toString());
                 boolean foiEditado = usuarioController.editar(usuario);
-                if(foiEditado == true){
+                if(foiEditado){
                     Toast.makeText(EditarUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
                     finish();
                 }else{

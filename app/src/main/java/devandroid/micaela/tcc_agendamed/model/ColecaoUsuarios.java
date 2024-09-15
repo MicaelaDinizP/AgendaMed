@@ -8,6 +8,6 @@ public interface ColecaoUsuarios {
     long inserir(String nome) throws ColecaoUsuariosException;
     List<Usuario> obterTodos() throws ColecaoUsuariosException;
     boolean editar(Usuario usuario) throws ColecaoUsuariosException;
-    int remover(long id) throws ColecaoUsuariosException;
+    boolean remover(long id) throws ColecaoUsuariosException;
 
 }

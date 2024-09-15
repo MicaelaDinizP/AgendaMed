@@ -59,8 +59,8 @@ public class UsuarioController{
         return foiEditado;
     }
 
-    public int remover(long id) {
-        int foiRemovido = -1;
+    public boolean remover(long id) {
+        boolean foiRemovido = false;
         try{
             foiRemovido = this.colecaoUsuarios.remover(id);
         }catch(ColecaoUsuariosException e){
