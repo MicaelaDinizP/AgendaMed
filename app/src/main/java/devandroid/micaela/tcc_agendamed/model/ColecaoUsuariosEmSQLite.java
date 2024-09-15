@@ -10,11 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import devandroid.micaela.tcc_agendamed.exception.ColecaoMedicamentosException;
 import devandroid.micaela.tcc_agendamed.exception.ColecaoUsuariosException;
 
 public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
-    private GerenciadorSQLite gerenciadorBancoDeDados;
+    private final GerenciadorSQLite gerenciadorBancoDeDados;
     private SQLiteDatabase bancoDeDados;
     public ColecaoUsuariosEmSQLite(Context context){
         this.gerenciadorBancoDeDados = new GerenciadorSQLite(context);
@@ -63,13 +62,10 @@ public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
     public boolean editar(Usuario usuario) {
         ContentValues values = new ContentValues();
         try{
-            int linhasAfetadas = 0;
-            values.put(gerenciadorBancoDeDados.COLUMN_NOME, usuario.getNome());
-            linhasAfetadas = this.bancoDeDados.update(gerenciadorBancoDeDados.TABLE_USUARIO, values, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
-            if(linhasAfetadas > 0){
-                return true;
-            }
-            return false;
+            int linhasAfetadas;
+            values.put(GerenciadorSQLite.COLUMN_NOME, usuario.getNome());
+            linhasAfetadas = this.bancoDeDados.update(GerenciadorSQLite.TABLE_USUARIO, values, GerenciadorSQLite.COLUMN_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+            return linhasAfetadas > 0;
         }catch(SQLException e){
             throw new ColecaoUsuariosException("Não foi possível editar o registro: " + e.getMessage(), e);
         }
@@ -77,7 +73,7 @@ public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
     @Override
     public int remover(long id) {
         try{
-            return this.bancoDeDados.delete(gerenciadorBancoDeDados.TABLE_USUARIO, gerenciadorBancoDeDados.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+            return this.bancoDeDados.delete(GerenciadorSQLite.TABLE_USUARIO, GerenciadorSQLite.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         }catch (SQLException e){
             throw new ColecaoUsuariosException("Não foi possível excluir o registro: " + e.getMessage(), e);
         }

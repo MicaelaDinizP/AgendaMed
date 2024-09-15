@@ -11,7 +11,7 @@ import devandroid.micaela.tcc_agendamed.model.ColecaoUsuariosEmSQLite;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioController{
-    private ColecaoUsuariosEmSQLite colecaoUsuarios;
+    private final ColecaoUsuariosEmSQLite colecaoUsuarios;
 
     public UsuarioController(Context context) {
         this.colecaoUsuarios = new ColecaoUsuariosEmSQLite(context);

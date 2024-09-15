@@ -2,11 +2,11 @@ package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -84,6 +84,7 @@ public class UsuarioActivity extends AppCompatActivity {
             desenharLinha(usuario.getNome(), usuario.getId());
         }
     }
+    @SuppressLint("SetTextI18n")
     public void desenharLinha(String nome, long id){
         Usuario usuario = new Usuario(id, nome);
         TableRow row = new TableRow(this);
@@ -111,7 +112,7 @@ public class UsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UsuarioActivity.this, EditarUsuarioActivity.class);
-                intent.putExtra("usuario", (Parcelable) usuario);
+                intent.putExtra("usuario", usuario);
                 startActivity(intent);
             }
         });
@@ -133,6 +134,6 @@ public class UsuarioActivity extends AppCompatActivity {
         this.tabelaUsuarios.addView(row, 0);
     }
     public void exibirMensagem(String mensagem){
-        Toast.makeText(UsuarioActivity.this, "" + mensagem + "" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(UsuarioActivity.this,mensagem, Toast.LENGTH_SHORT).show();
     }
 }
