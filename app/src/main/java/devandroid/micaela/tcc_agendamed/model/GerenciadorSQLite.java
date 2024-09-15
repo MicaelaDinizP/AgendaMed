@@ -38,27 +38,27 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
 
     private static final String TABLE_DIA_DA_SEMANA_CREATE = "CREATE TABLE "+ TABLE_DIA_DA_SEMANA+ "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_DIA_DA_SEMANA + "TEXT NOT NULL UNIQUE);";
+            COLUMN_DIA_DA_SEMANA + " TEXT NOT NULL UNIQUE);";
     private static final String TABLE_MEDICAMENTO_CREATE =
             "CREATE TABLE " + TABLE_MEDICAMENTO + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NOME + " TEXT NOT NULL, " +
-                    COLUMN_USUARIO_ID + "INTEGER NOT NULL ," +
+                    COLUMN_USUARIO_ID + " INTEGER NOT NULL ," +
                     COLUMN_QUANTIDADE_DOSES + " INTEGER NOT NULL, " +
                     COLUMN_DOSES_POR_DIA + " INTEGER NOT NULL, " +
                     COLUMN_QUANTIDADE_ESTOQUE_CRITICO + " INTEGER NOT NULL, " +
                     COLUMN_QUANTIDADE_DOSES_RESTANTES + " INTEGER NOT NULL, " +
                     COLUMN_USO_PAUSADO + " INTEGER DEFAULT 0, " +
                     COLUMN_CRIAR_ALARMES + " INTEGER DEFAULT 0, " +
-                    COLUMN_ALARME_ATIVO + "INTEGER DEFAULT 0," +
-                    "FOREIGN KEY (" + COLUMN_USUARIO_ID + ") REFERENCES " + TABLE_USUARIO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
+                    COLUMN_ALARME_ATIVO + " INTEGER DEFAULT 0," +
+                    " FOREIGN KEY (" + COLUMN_USUARIO_ID + ") REFERENCES " + TABLE_USUARIO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
 
     private static final String TABLE_HORARIOS_DOSES_CREATE =
             "CREATE TABLE " + TABLE_HORARIOS_DOSES + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_MEDICAMENTO_ID + " INTEGER, " +
                     COLUMN_HORARIO + " TEXT NOT NULL, " + //HH:MM:SS
-                    "FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID + ") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
+                    " FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID + ") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
 
     private static final String TABLE_USUARIO_CREATE =
             "CREATE TABLE " + TABLE_USUARIO + " (" +
@@ -73,7 +73,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
     private static final String TABLE_MEDICAMENTO_DIA_DA_SEMANA_CREATE =
             "CREATE TABLE " + TABLE_MEDICAMENTO_DIA_DA_SEMANA + "(" +
                     COLUMN_MEDICAMENTO_ID + " INTEGER NOT NULL, " +
-                    COLUMN_DIA_DA_SEMANA_ID + "INTEGER NOT NULL, " +
+                    COLUMN_DIA_DA_SEMANA_ID + " INTEGER NOT NULL, " +
                     "PRIMARY KEY (" + COLUMN_MEDICAMENTO_ID + "," + COLUMN_DIA_DA_SEMANA_ID + " ), " +
                     "FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID +") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "FOREIGN KEY (" + COLUMN_DIA_DA_SEMANA_ID +") REFERENCES " + TABLE_DIA_DA_SEMANA + "(" + COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE);";
@@ -85,7 +85,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_MANUAL);
+        db.execSQL(TABLE_MANUAL_CREATE);
         db.execSQL(TABLE_USUARIO_CREATE);
         db.execSQL(TABLE_DIA_DA_SEMANA_CREATE);
         db.execSQL(TABLE_MEDICAMENTO_CREATE);
