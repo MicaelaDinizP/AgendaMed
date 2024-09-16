@@ -147,4 +147,5 @@ public class MedicamentoActivity extends AppCompatActivity {
     private void desabilitarBotaoReporMedicamento() {
         this.btnReporMedicamento.setEnabled(false);
     }
+
 }
