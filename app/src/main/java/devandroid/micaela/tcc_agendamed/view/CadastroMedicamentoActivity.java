@@ -1,12 +1,19 @@
 package devandroid.micaela.tcc_agendamed.view;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextWatcher;
+import android.text.Editable;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +26,6 @@ import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class CadastroMedicamentoActivity extends AppCompatActivity {
-
     private MedicamentoController medicamentoController;
     private EditText editTextNomeMedicamento;
     private EditText editTextDosesPorEmbalagem;
@@ -33,13 +39,14 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
     private ImageButton btnFechar;
     private ImageButton btnApagar;
     private ImageButton btnSalvar;
+    private TableLayout tabelaHorarios;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_medicamento);
 
         ArrayList<CheckBox> cbDiasDaSemana = new ArrayList<CheckBox>();
-        List<String> listaEstaticaPraTeste = new ArrayList<String>();
+        this.listaHorarios = new ArrayList<>();
 
         this.medicamentoController = new MedicamentoController(CadastroMedicamentoActivity.this);
         this.editTextNomeMedicamento = findViewById(R.id.editTextNomeMedicamento);
@@ -49,6 +56,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
         this.editTextDosesRestantes = findViewById(R.id.editTextDosesRestantes);
         this.checkBoxPausarUso = findViewById(R.id.checkBoxPausarUso);
         this.checkBoxCriarAlarme = findViewById(R.id.checkBoxCriarAlarme);
+        this.tabelaHorarios = findViewById(R.id.tableHorarios);
         //MAPEAR O CAMPO DOS HORARIOS
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaSegunda));
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaTerca));
@@ -58,12 +66,16 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaSabado));
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaDomingo));
 
-        //PEGAR A LISTA DE HORARIOS
-        //FAKE PARA PROSSEGUIR O DESENVOLVIMENTO:
-        listaEstaticaPraTeste.add("12:00:00");
-        listaEstaticaPraTeste.add("13:00:00");
-        this.listaHorarios = listaEstaticaPraTeste;
-        // ...
+        this.editTextDosesPorDia.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                atualizarTabelaHorarioDasDoses(Integer.parseInt(s.toString()));
+            }
+        });
 
         this.btnFechar = findViewById(R.id.btnFechar);
         this.btnFechar.setOnClickListener(new View.OnClickListener() {
@@ -81,11 +93,11 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         this.btnSalvar = findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                obterListaDeHorarios();
                 obterDiasDaSemana(cbDiasDaSemana);
                 if (verificarCampos()) {
                     String nomeMedicamento = editTextNomeMedicamento.getText().toString();
@@ -112,8 +124,43 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
+    private void obterListaDeHorarios() {
+        int qtdRegistros = this.tabelaHorarios.getChildCount();
+
+        for (int i = 0; i < qtdRegistros; i++) {
+            TableRow linhaAtual = (TableRow) tabelaHorarios.getChildAt(i);
+            for (int j = 0; j < linhaAtual.getChildCount(); j++) {
+                View view = linhaAtual.getChildAt(j);
+                if (view instanceof EditText) {
+                    EditText editText = (EditText) view;
+                    String horario = editText.getText().toString();
+                    this.listaHorarios.add(horario);
+                }
+            }
+        }
+    }
+    private void atualizarTabelaHorarioDasDoses(int dosesPorDia) {
+        this.tabelaHorarios.removeAllViews();
+        for (int i = 0; i < dosesPorDia; i++) {
+            TableRow linha = new TableRow(this);
+            TextView numRegistro = new TextView(this);
+            numRegistro.setText("Dose " + (i + 1));
+            numRegistro.setPadding(16, 16, 16, 16);
+            numRegistro.setTextSize(17);
+            numRegistro.setTextColor(Color.parseColor("#000000"));
+            numRegistro.setTypeface(Typeface.DEFAULT_BOLD);
+
+            EditText horarioDesejado = new EditText(this);
+            horarioDesejado.setTextSize(17);
+            horarioDesejado.setTextColor(Color.parseColor("#000000"));
+
+            linha.addView(numRegistro);
+            linha.addView(horarioDesejado);
+            this.tabelaHorarios.addView(linha);
+        }
+    }
+
     private boolean verificarCampos(){
         return !editTextNomeMedicamento.getText().toString().trim().isEmpty() &&
                 !editTextDosesPorEmbalagem.getText().toString().trim().isEmpty() &&
@@ -149,5 +196,4 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
             this.listaDeDiasDaSemana.add(DiaDaSemana.DOMINGO);
         }
     }
-
 }

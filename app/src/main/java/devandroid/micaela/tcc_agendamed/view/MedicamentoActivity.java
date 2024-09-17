@@ -103,7 +103,8 @@ public class MedicamentoActivity extends AppCompatActivity {
         nomeMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Redireciona para visualização do registro
+                Toast.makeText(MedicamentoActivity.this, "Visualizar o registro." , Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -115,14 +116,13 @@ public class MedicamentoActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Redireciona para a tela de edição
+                Toast.makeText(MedicamentoActivity.this, "Editar o registro." , Toast.LENGTH_SHORT).show();
             }
         });
 
         row.addView(nomeMedicamento);
         row.addView(botaoEditar);
         this.tabelaMedicamentos.addView(row);
-
         //Editar cor e informações de disponibilidade aqui, futuramente. !!!!
     }
 
@@ -135,11 +135,6 @@ public class MedicamentoActivity extends AppCompatActivity {
         if (childCount > 0) {
             this.tabelaMedicamentos.removeViews(0, childCount);
         }
-        //Buscar medicamentos. Se houver medicamentos criar uma tabela com os campos Medicamento | Editar
-        //Criar uma lista de medicamentos fake para testar a criação da tabela
-        //Desenhar os registros na tela e armazenar o Id de cada medicamento no registro, como na tabela usuários
-        //O resto funcionara igual para a inserção
-        //Criar o caminho de inserção na controladora e a query do bdd
     }
     private void habilitarBotaoReporMedicamento() {
         this.btnReporMedicamento.setEnabled(true);
