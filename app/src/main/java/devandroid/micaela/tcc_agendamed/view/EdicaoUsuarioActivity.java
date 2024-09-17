@@ -9,13 +9,11 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
-
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
-public class EditarUsuarioActivity extends AppCompatActivity {
+public class EdicaoUsuarioActivity extends AppCompatActivity {
     private UsuarioController usuarioController;
     private Usuario usuario;
     private ImageButton btnFechar;
@@ -26,12 +24,12 @@ public class EditarUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_usuario);
+        setContentView(R.layout.activity_edicao_usuario);
 
         Intent intent = getIntent();
         this.usuario = intent.getParcelableExtra("usuario");
 
-        this.usuarioController = new UsuarioController(EditarUsuarioActivity.this);
+        this.usuarioController = new UsuarioController(EdicaoUsuarioActivity.this);
 
         this.editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
 
@@ -49,16 +47,16 @@ public class EditarUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(MainActivity.USUARIO_LOGADO.getId() == usuario.getId()){
-                    Toast.makeText(EditarUsuarioActivity.this, "ERRO: Não é possível excluir o usuario ativo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EdicaoUsuarioActivity.this, "ERRO: Não é possível excluir o usuario ativo", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 usuarioController.abrirConexao();
                 boolean foiRemovido = usuarioController.remover(usuario.getId());
                 if(foiRemovido) {
-                    Toast.makeText(EditarUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EdicaoUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
-                    Toast.makeText(EditarUsuarioActivity.this, "ERRO: Não foi possível remover o usuário", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EdicaoUsuarioActivity.this, "ERRO: Não foi possível remover o usuário", Toast.LENGTH_SHORT).show();
                 }
                 usuarioController.fecharConexao();
             }
@@ -72,10 +70,10 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                 usuario.setNome(editTextNomeUsuario.getText().toString());
                 boolean foiEditado = usuarioController.editar(usuario);
                 if(foiEditado){
-                    Toast.makeText(EditarUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EdicaoUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
                     finish();
                 }else{
-                    Toast.makeText(EditarUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EdicaoUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
                 }
                 usuarioController.fecharConexao();
             }

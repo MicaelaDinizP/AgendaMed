@@ -43,7 +43,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastrar_medicamento);
+        setContentView(R.layout.activity_cadastro_medicamento);
 
         ArrayList<CheckBox> cbDiasDaSemana = new ArrayList<CheckBox>();
         this.listaHorarios = new ArrayList<>();

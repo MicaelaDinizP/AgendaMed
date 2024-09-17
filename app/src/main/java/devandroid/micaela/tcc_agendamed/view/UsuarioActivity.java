@@ -111,7 +111,7 @@ public class UsuarioActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UsuarioActivity.this, EditarUsuarioActivity.class);
+                Intent intent = new Intent(UsuarioActivity.this, EdicaoUsuarioActivity.class);
                 intent.putExtra("usuario", usuario);
                 startActivity(intent);
             }
