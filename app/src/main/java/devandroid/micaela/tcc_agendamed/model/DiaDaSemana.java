@@ -1,8 +1,11 @@
 package devandroid.micaela.tcc_agendamed.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Locale;
 
-public enum DiaDaSemana {
+public enum DiaDaSemana implements Parcelable {
     SEGUNDA(1),
     TERCA(2),
     QUARTA(3),
@@ -16,13 +19,14 @@ public enum DiaDaSemana {
     DiaDaSemana(int valor) {
         this.valor = valor;
     }
+
     public int getValor() {
         return valor;
     }
 
-    public static DiaDaSemana getDiaDaSemana(String dia){
+    public static DiaDaSemana getDiaDaSemana(String dia) {
         DiaDaSemana diaCorrespondente = null;
-        switch(dia.toUpperCase(Locale.ROOT)){
+        switch (dia.toUpperCase(Locale.ROOT)) {
             case "SEGUNDA":
                 diaCorrespondente = SEGUNDA;
                 break;
@@ -46,5 +50,33 @@ public enum DiaDaSemana {
         }
         return diaCorrespondente;
     }
-}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(this.valor);
+    }
+    public static final Creator<DiaDaSemana> CREATOR = new Creator<DiaDaSemana>() {
+        @Override
+        public DiaDaSemana createFromParcel(Parcel in) {
+            int valor = in.readInt();
+            return fromInt(valor);
+        }
+
+        @Override
+        public DiaDaSemana[] newArray(int size) {
+            return new DiaDaSemana[size];
+        }
+    };
+    public static DiaDaSemana fromInt(int valor) {
+        for (DiaDaSemana dia : DiaDaSemana.values()) {
+            if (dia.getValor() == valor) {
+                return dia;
+            }
+        }
+        return null;
+    }
+}
