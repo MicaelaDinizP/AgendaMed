@@ -215,6 +215,7 @@ public class ColecaoMedicamentosEmSQLite implements ColecaoMedicamentos {
         }
     }
     public boolean remover(long id) {
+        bancoDeDados.beginTransaction();
         try {
             int rowsAffected = bancoDeDados.delete(
                     GerenciadorSQLite.TABLE_MEDICAMENTO,

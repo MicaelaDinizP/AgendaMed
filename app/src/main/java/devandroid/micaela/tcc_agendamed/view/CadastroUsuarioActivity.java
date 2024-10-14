@@ -42,7 +42,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CadastroUsuarioActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

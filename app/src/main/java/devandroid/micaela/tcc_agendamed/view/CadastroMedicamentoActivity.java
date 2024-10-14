@@ -93,8 +93,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CadastroMedicamentoActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
-                finish();
+               finish();
             }
         });
         this.btnSalvar = findViewById(R.id.btnSalvar);
