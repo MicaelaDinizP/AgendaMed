@@ -86,17 +86,16 @@ public class MedicamentoActivity extends AppCompatActivity {
     }
     public void desenharTabela(){
         for (Medicamento med : this.listaMedicamentos) {
-            desenharLinha(med.getNomeMedicamento(), med.getId());
+            desenharLinha(med);
         }
     }
-    public void desenharLinha(String nome, long id){
-        Medicamento med = new Medicamento(id, nome);
+    public void desenharLinha(Medicamento medicamento){
         TableRow row = new TableRow(this);
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         TextView nomeMedicamento = new TextView(this);
         nomeMedicamento.setId(View.generateViewId());
-        nomeMedicamento.setText(nome);
+        nomeMedicamento.setText(medicamento.getNomeMedicamento());
         nomeMedicamento.setPadding(8, 8, 8, 8);
         nomeMedicamento.setGravity(Gravity.CENTER);
         nomeMedicamento.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
@@ -116,7 +115,9 @@ public class MedicamentoActivity extends AppCompatActivity {
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MedicamentoActivity.this, "Editar o registro." , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MedicamentoActivity.this, EdicaoMedicamentoActivity.class);
+                intent.putExtra("medicamento", medicamento);
+                startActivity(intent);
             }
         });
 
