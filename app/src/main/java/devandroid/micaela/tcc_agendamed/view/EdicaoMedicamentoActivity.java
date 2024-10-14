@@ -100,7 +100,15 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EdicaoMedicamentoActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
+                medicamentoController.abrirConexao();
+                boolean foiRemovido = medicamentoController.remover(medicamentoParaEditar.getId());
+                if(foiRemovido) {
+                    Toast.makeText(EdicaoMedicamentoActivity.this, "Medicamento removido com sucesso!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Não foi possível remover o medicamento", Toast.LENGTH_SHORT).show();
+                }
+                medicamentoController.fecharConexao();
                 finish();
             }
         });

@@ -34,4 +34,8 @@ public class MedicamentoController {
     public boolean editar(Medicamento medicamento){
         return this.colecaoMedicamentos.editar(medicamento);
     }
+
+    public boolean remover(long id){
+        return this.colecaoMedicamentos.remover(id);
+    }
 }
