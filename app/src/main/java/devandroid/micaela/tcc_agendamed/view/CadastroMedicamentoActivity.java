@@ -167,6 +167,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
     private boolean verificarCampos(){
         return !editTextNomeMedicamento.getText().toString().trim().isEmpty() &&
                 !editTextDosesPorEmbalagem.getText().toString().trim().isEmpty() &&
+                Integer.parseInt(editTextDosesPorEmbalagem.getText().toString().trim()) > 0 &&
                 !editTextDosesPorDia.getText().toString().trim().isEmpty() &&
                 !editTextEstoqueCritico.getText().toString().trim().isEmpty() &&
                 !editTextDosesRestantes.getText().toString().trim().isEmpty() &&

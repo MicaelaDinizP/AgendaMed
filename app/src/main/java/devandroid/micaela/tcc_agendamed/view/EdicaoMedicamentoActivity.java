@@ -73,47 +73,50 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaDomingo));
 
         this.montarMedicamentoParaEdicao();
-//
-//        this.editTextDosesPorDia.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                atualizarTabelaHorarioDasDoses(Integer.parseInt(s.toString()));
-//            }
-//        });
-//
-//        this.btnFechar = findViewById(R.id.btnFechar);
-//        this.btnFechar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//
-//        this.btnApagar = findViewById(R.id.btnApagar);
-//        btnApagar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(EdicaoMedicamentoActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        });
-//        this.btnSalvar = findViewById(R.id.btnSalvar);
-//        btnSalvar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                obterListaDeHorarios();
-//                obterDiasDaSemana(cbDiasDaSemana);
-//                if (verificarCampos()) {
-//                    Toast.makeText(EdicaoMedicamentoActivity.this, "Elegível para salvar as mudanças." , Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Campos obrigatórios não preenchidos." , Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        this.editTextDosesPorDia.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                int dose = 0;
+                if (!s.toString().isEmpty()) {
+                    dose = Integer.parseInt(s.toString());
+                }
+                atualizarTabelaHorarioDasDoses(dose);
+            }
+        });
+
+        this.btnFechar = findViewById(R.id.btnFechar);
+        this.btnFechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        this.btnApagar = findViewById(R.id.btnApagar);
+        btnApagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(EdicaoMedicamentoActivity.this, "Botão clicado : Apagar " , Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+        this.btnSalvar = findViewById(R.id.btnSalvar);
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                obterListaDeHorarios();
+                obterDiasDaSemana(cbDiasDaSemana);
+                if (verificarCampos()) {
+                    Toast.makeText(EdicaoMedicamentoActivity.this, "Elegível para salvar as mudanças." , Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Campos obrigatórios não preenchidos." , Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void montarMedicamentoParaEdicao() {
@@ -225,7 +228,8 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
     private boolean verificarCampos(){
         return !editTextNomeMedicamento.getText().toString().trim().isEmpty() &&
                 !editTextDosesPorEmbalagem.getText().toString().trim().isEmpty() &&
-                !editTextDosesPorDia.getText().toString().trim().isEmpty() &&
+                Integer.parseInt(editTextDosesPorEmbalagem.getText().toString().trim()) > 0 &&
+        !editTextDosesPorDia.getText().toString().trim().isEmpty() &&
                 !editTextEstoqueCritico.getText().toString().trim().isEmpty() &&
                 !editTextDosesRestantes.getText().toString().trim().isEmpty() &&
                 !listaDeDiasDaSemana.isEmpty() &&
