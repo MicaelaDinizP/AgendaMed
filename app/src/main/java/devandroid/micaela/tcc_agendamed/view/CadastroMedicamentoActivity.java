@@ -73,7 +73,11 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                atualizarTabelaHorarioDasDoses(Integer.parseInt(s.toString()));
+                int dose = 0;
+                if (!s.toString().isEmpty()) {
+                    dose = Integer.parseInt(s.toString());
+                }
+                atualizarTabelaHorarioDasDoses(dose);
             }
         });
 
@@ -109,7 +113,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                     Medicamento medicamento = new Medicamento(nomeMedicamento, MainActivity.USUARIO_LOGADO, qtdDosesPorEmbalagem,
                             listaDeDiasDaSemana, qtdDosesPorDia, qtdEstoqueCritico, qtdDosesRestantes, checkBoxPausarUso.isChecked(),
                             checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
-                    Toast.makeText(CadastroMedicamentoActivity.this, "Botão clicado : Salvar ", Toast.LENGTH_SHORT).show();
                     medicamentoController.abrirConexao();
                     long idRetornado = medicamentoController.inserir(medicamento);
                     if(idRetornado != -1){
