@@ -113,5 +113,8 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
                 "Cras sagittis finibus ornare. Nulla fermentum nisl a orci porta volutpat. Sed iaculis nulla nec quam venenatis, " +
                 "ac consectetur metus venenatis. Ut tempus elit ut purus porta, vel mattis purus auctor. Nulla facilisi. " +
                 "Donec sit amet ullamcorper enim, et sodales justo. Suspendisse potenti.');");
+
+        db.execSQL("INSERT INTO " + TABLE_DIA_DA_SEMANA + " (" + COLUMN_DIA_DA_SEMANA + ") VALUES ('Segunda'), ('Terca'), ('Quarta')," +
+                " ('Quinta'), ('Sexta'), ('Sabado'), ('Domingo');");
     }
 }
