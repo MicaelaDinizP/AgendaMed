@@ -264,7 +264,7 @@
                 android:paddingTop="10dp"
                 android:text="Doses Restantes"
                 android:textColor="@color/fontBaseBlack"
-                android:textSize="20sp" />
+                android:textSize="19sp" />
 
             <EditText
                 android:id="@+id/editTextEstoqueCritico"
