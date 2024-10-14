@@ -28,7 +28,10 @@ public class MedicamentoController {
     }
 
     public long inserir(Medicamento medicamento) {
-
         return this.colecaoMedicamentos.inserir(medicamento);
+    }
+
+    public boolean editar(Medicamento medicamento){
+        return this.colecaoMedicamentos.editar(medicamento);
     }
 }

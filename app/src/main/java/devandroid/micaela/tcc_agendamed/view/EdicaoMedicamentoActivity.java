@@ -111,7 +111,25 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                 obterListaDeHorarios();
                 obterDiasDaSemana(cbDiasDaSemana);
                 if (verificarCampos()) {
-                    Toast.makeText(EdicaoMedicamentoActivity.this, "Elegível para salvar as mudanças." , Toast.LENGTH_SHORT).show();
+                    String nomeMedicamento = editTextNomeMedicamento.getText().toString();
+                    int qtdDosesPorEmbalagem = Integer.parseInt(editTextDosesPorEmbalagem.getText().toString());
+                    int qtdDosesPorDia = Integer.parseInt(editTextDosesPorDia.getText().toString());
+                    int qtdEstoqueCritico = Integer.parseInt(editTextEstoqueCritico.getText().toString());
+                    int qtdDosesRestantes = Integer.parseInt(editTextDosesRestantes.getText().toString());
+
+                    Medicamento medicamento = new Medicamento(nomeMedicamento, MainActivity.USUARIO_LOGADO, qtdDosesPorEmbalagem,
+                            listaDeDiasDaSemana, qtdDosesPorDia, qtdEstoqueCritico, qtdDosesRestantes, checkBoxPausarUso.isChecked(),
+                            checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
+                    medicamento.setId(medicamentoParaEditar.getId());
+                    medicamentoController.abrirConexao();
+                    boolean foiEditado = medicamentoController.editar(medicamento);
+                    if(foiEditado == true){
+                        Toast.makeText(EdicaoMedicamentoActivity.this, "Medicamento alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Não foi possível alterar o medicamento." , Toast.LENGTH_SHORT).show();
+                    }
+                    medicamentoController.fecharConexao();
                 }else{
                     Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Campos obrigatórios não preenchidos." , Toast.LENGTH_SHORT).show();
                 }
