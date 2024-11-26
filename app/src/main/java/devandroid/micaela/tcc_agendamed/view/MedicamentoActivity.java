@@ -7,10 +7,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Layout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -64,20 +66,90 @@ public class MedicamentoActivity extends AppCompatActivity {
         });
     }
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        this.listaMedicamentos = new ArrayList<Medicamento>();
+
+        this.listaMedicamentos = new ArrayList<>();
         obterMedicamentosCadastrados();
 
-        if(!this.listaMedicamentos.isEmpty()){
-            this.limparTabela();
-            this.desenharTabela();
-            this.habilitarBotaoReporMedicamento();
-        }else{
-            this.desabilitarBotaoReporMedicamento();
-            //Criar o text view do erro aqui e remover  do xml
+        limparTabela();
+
+        if (this.listaMedicamentos.isEmpty()) {
+            recriarMesagemTabelaVazia();
+        } else {
+            desenharTabela();
         }
     }
+
+    private void atualizarRowTitulos() {
+        TableRow rowTitulos = findViewById(R.id.rowTitulos);
+        rowTitulos.removeAllViews(); // Limpa os filhos existentes, se necessário
+
+        // Adicionando o primeiro TextView (título dos medicamentos)
+        TextView textViewTitulo = new TextView(this);
+        textViewTitulo.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+        textViewTitulo.setPadding(20, 20, 20, 20);
+        textViewTitulo.setText("Medicamentos");
+        rowTitulos.addView(textViewTitulo); // Adiciona o TextView à TableRow
+
+        // Adicionando o segundo TextView (para editar)
+        TextView textViewEditar = new TextView(this);
+        textViewEditar.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+        textViewEditar.setPadding(20, 20, 20, 20);
+        textViewEditar.setText("Editar");
+        rowTitulos.addView(textViewEditar); // Adiciona o TextView à TableRow
+    }
+
+    private void mostrarRegistroAusente() {
+        TableRow rowTitulos = findViewById(R.id.rowTitulos);
+        rowTitulos.removeAllViews(); // Limpa as Views existentes se necessário
+
+        TextView textViewRegistroAusente = new TextView(this);
+        textViewRegistroAusente.setId(View.generateViewId());
+        textViewRegistroAusente.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+        textViewRegistroAusente.setPadding(20, 20, 20, 20);
+        textViewRegistroAusente.setText("Não há medicamentos cadastrados.");
+        textViewRegistroAusente.setTypeface(null, Typeface.ITALIC);
+        textViewRegistroAusente.setGravity(Gravity.CENTER);
+        textViewRegistroAusente.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
+        rowTitulos.addView(textViewRegistroAusente); // Adiciona o TextView à TableRow
+    }
+    private void recriarMesagemTabelaVazia() {
+        TableLayout tableMedicamentos = findViewById(R.id.tableMedicamentos);
+        TableRow rowTitulos = findViewById(R.id.rowTitulos);
+
+        // Se rowTitulos for nulo, cria uma nova TableRow
+        if (rowTitulos == null) {
+            rowTitulos = new TableRow(this);
+            rowTitulos.setId(View.generateViewId()); // Gera um ID único
+            // Adiciona a nova TableRow ao TableLayout
+            tableMedicamentos.addView(rowTitulos);
+        } else {
+            // Se já existe, remove os views existentes
+            rowTitulos.removeAllViews();
+        }
+
+        // Criar novo TextView
+        TextView textViewRegistroAusente = new TextView(this);
+        textViewRegistroAusente.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT)); // Layout width and height
+        textViewRegistroAusente.setPadding(20, 20, 20, 20); // Padding
+        textViewRegistroAusente.setText("Não há medicamentos cadastrados."); // Texto
+        textViewRegistroAusente.setTypeface(null, Typeface.ITALIC); // Estilo de texto (itálico)
+        textViewRegistroAusente.setGravity(Gravity.CENTER); // Gravidade (centro)
+
+        // Adicionar o novo TextView na TableRow
+        rowTitulos.addView(textViewRegistroAusente);
+    }
+
     public void obterMedicamentosCadastrados(){
         this.medicamentoController.abrirConexao();
         this.listaMedicamentos = this.medicamentoController.obterTodos(MainActivity.USUARIO_LOGADO);
@@ -89,24 +161,100 @@ public class MedicamentoActivity extends AppCompatActivity {
             desenharLinha(med);
         }
     }
-    public void desenharLinha(Medicamento medicamento){
+    public void desenharLinha(Medicamento medicamento) {
         TableRow row = new TableRow(this);
-        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        row.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-        TextView nomeMedicamento = new TextView(this);
-        nomeMedicamento.setId(View.generateViewId());
-        nomeMedicamento.setText(medicamento.getNomeMedicamento());
-        nomeMedicamento.setPadding(8, 8, 8, 8);
-        nomeMedicamento.setGravity(Gravity.CENTER);
-        nomeMedicamento.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-        nomeMedicamento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MedicamentoActivity.this, "Visualizar o registro." , Toast.LENGTH_SHORT).show();
+        boolean flagNecessaria = medicamento.isUsoPausado() ||
+                medicamento.getQuantidadeDosesRestantes() <= medicamento.getQuantidadeEstoqueCritico();
 
+        if (flagNecessaria) {
+            // Criação do LinearLayout para agrupar a flag e o nome do medicamento
+            LinearLayout container = new LinearLayout(this);
+            container.setOrientation(LinearLayout.VERTICAL);
+            container.setLayoutParams(new TableRow.LayoutParams(
+                    0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+            container.setPadding(8, 8, 8, 8);
+            container.setGravity(Gravity.CENTER);
+
+            // Criação do TextView para a flag
+            TextView flag = new TextView(this);
+            flag.setTypeface(null, Typeface.BOLD);
+            flag.setGravity(Gravity.CENTER);
+
+            if (medicamento.isUsoPausado()) {
+                flag.setText("Pausado");
+                flag.setBackgroundColor(Color.BLUE);
+                flag.setTextColor(Color.WHITE);
+            } else if (medicamento.getQuantidadeDosesRestantes() == 0) {
+                flag.setText("Esgotado");
+                flag.setBackgroundColor(Color.RED);
+                flag.setTextColor(Color.WHITE);
+            } else if (medicamento.getQuantidadeDosesRestantes() < medicamento.getQuantidadeEstoqueCritico()) {
+                flag.setText("Esgotando");
+                flag.setBackgroundColor(Color.YELLOW);
+                flag.setTextColor(Color.BLACK);
             }
-        });
 
+            // Adiciona a flag ao container
+            container.addView(flag);
+
+            // Criação do TextView para o nome do medicamento
+            TextView nomeMedicamento = new TextView(this);
+            nomeMedicamento.setId(View.generateViewId());
+            nomeMedicamento.setText(medicamento.getNomeMedicamento());
+            nomeMedicamento.setTextSize(18); // Aumenta o tamanho da fonte para 18sp
+            nomeMedicamento.setGravity(Gravity.CENTER);
+            nomeMedicamento.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            // Ajuste de cor de fundo com base na situação
+            if (medicamento.isUsoPausado()) {
+                nomeMedicamento.setBackgroundColor(Color.BLUE);
+                nomeMedicamento.setTextColor(Color.WHITE);
+            } else if (medicamento.getQuantidadeDosesRestantes() == 0) {
+                nomeMedicamento.setBackgroundColor(Color.RED);
+                nomeMedicamento.setTextColor(Color.WHITE);
+            } else if (medicamento.getQuantidadeDosesRestantes() < medicamento.getQuantidadeEstoqueCritico()) {
+                nomeMedicamento.setBackgroundColor(Color.YELLOW);
+                nomeMedicamento.setTextColor(Color.BLACK);
+            }
+
+            // Adiciona o nome do medicamento ao container
+            container.addView(nomeMedicamento);
+
+            // Adiciona o container à linha da tabela
+            row.addView(container);
+
+        } else {
+            // Criação do TextView para o nome do medicamento sem flag
+            TextView nomeMedicamento = new TextView(this);
+            nomeMedicamento.setId(View.generateViewId());
+            nomeMedicamento.setText(medicamento.getNomeMedicamento());
+            nomeMedicamento.setTextSize(18); // Aumenta o tamanho da fonte para 18sp
+            nomeMedicamento.setPadding(8, 8, 8, 8);
+            nomeMedicamento.setGravity(Gravity.CENTER);
+            nomeMedicamento.setLayoutParams(new TableRow.LayoutParams(
+                    0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+
+            // Ajuste de cor de fundo com base na situação (sem flag)
+            if (medicamento.getQuantidadeDosesRestantes() == 0) {
+                nomeMedicamento.setBackgroundColor(Color.RED);
+                nomeMedicamento.setTextColor(Color.WHITE);
+            } else if (medicamento.getQuantidadeDosesRestantes() < medicamento.getQuantidadeEstoqueCritico()) {
+                nomeMedicamento.setBackgroundColor(Color.YELLOW);
+                nomeMedicamento.setTextColor(Color.BLACK);
+            } else {
+                nomeMedicamento.setBackgroundColor(Color.WHITE);
+                nomeMedicamento.setTextColor(Color.BLACK);
+            }
+
+            // Adiciona o nome do medicamento diretamente à linha da tabela
+            row.addView(nomeMedicamento);
+        }
+
+        // Criação do botão de edição
         Button botaoEditar = new Button(this);
         botaoEditar.setText("Editar");
         botaoEditar.setPadding(8, 8, 8, 8);
@@ -121,10 +269,11 @@ public class MedicamentoActivity extends AppCompatActivity {
             }
         });
 
-        row.addView(nomeMedicamento);
+        // Adiciona o botão de edição à linha da tabela
         row.addView(botaoEditar);
+
+        // Adiciona a linha à tabela
         this.tabelaMedicamentos.addView(row);
-        //Editar cor e informações de disponibilidade aqui, futuramente. !!!!
     }
 
     private int getPaddingEmPixels(int paddingEmDp) {
