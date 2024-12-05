@@ -38,6 +38,8 @@
         </activity>
         <activity android:name=".view.CadastroMedicamentoActivity">
         </activity>
+        <activity android:name=".view.ReposicaoMedicamentoActivity">
+        </activity>
         <activity android:name=".view.SelecaoUsuarioActivity">
         </activity>
     </application>

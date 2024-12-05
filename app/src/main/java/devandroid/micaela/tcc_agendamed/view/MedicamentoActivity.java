@@ -61,6 +61,8 @@ public class MedicamentoActivity extends AppCompatActivity {
         this.btnReporMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MedicamentoActivity.this, ReposicaoMedicamentoActivity.class);
+                startActivity(intent);
                 Toast.makeText(MedicamentoActivity.this, "Botão repor clicado." , Toast.LENGTH_SHORT).show();
             }
         });
@@ -79,47 +81,6 @@ public class MedicamentoActivity extends AppCompatActivity {
         } else {
             desenharTabela();
         }
-    }
-
-    private void atualizarRowTitulos() {
-        TableRow rowTitulos = findViewById(R.id.rowTitulos);
-        rowTitulos.removeAllViews(); // Limpa os filhos existentes, se necessário
-
-        // Adicionando o primeiro TextView (título dos medicamentos)
-        TextView textViewTitulo = new TextView(this);
-        textViewTitulo.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        textViewTitulo.setPadding(20, 20, 20, 20);
-        textViewTitulo.setText("Medicamentos");
-        rowTitulos.addView(textViewTitulo); // Adiciona o TextView à TableRow
-
-        // Adicionando o segundo TextView (para editar)
-        TextView textViewEditar = new TextView(this);
-        textViewEditar.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        textViewEditar.setPadding(20, 20, 20, 20);
-        textViewEditar.setText("Editar");
-        rowTitulos.addView(textViewEditar); // Adiciona o TextView à TableRow
-    }
-
-    private void mostrarRegistroAusente() {
-        TableRow rowTitulos = findViewById(R.id.rowTitulos);
-        rowTitulos.removeAllViews(); // Limpa as Views existentes se necessário
-
-        TextView textViewRegistroAusente = new TextView(this);
-        textViewRegistroAusente.setId(View.generateViewId());
-        textViewRegistroAusente.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        textViewRegistroAusente.setPadding(20, 20, 20, 20);
-        textViewRegistroAusente.setText("Não há medicamentos cadastrados.");
-        textViewRegistroAusente.setTypeface(null, Typeface.ITALIC);
-        textViewRegistroAusente.setGravity(Gravity.CENTER);
-        textViewRegistroAusente.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-        rowTitulos.addView(textViewRegistroAusente); // Adiciona o TextView à TableRow
     }
     private void recriarMesagemTabelaVazia() {
         TableLayout tableMedicamentos = findViewById(R.id.tableMedicamentos);
@@ -154,7 +115,6 @@ public class MedicamentoActivity extends AppCompatActivity {
         this.medicamentoController.abrirConexao();
         this.listaMedicamentos = this.medicamentoController.obterTodos(MainActivity.USUARIO_LOGADO);
         this.medicamentoController.fecharConexao();
-
     }
     public void desenharTabela(){
         for (Medicamento med : this.listaMedicamentos) {
