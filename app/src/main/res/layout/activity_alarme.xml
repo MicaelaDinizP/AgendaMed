@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
-        <TableRow>
+        <TableRow android:id="@+id/rowRegistroAlarme">
 
             <TextView
                 android:id="@+id/textViewMedEAlarmRegistroAusente"
@@ -50,7 +50,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Definir Alarmes"
-        android:enabled="false"
         android:textSize="16sp" />
 
 </LinearLayout>
