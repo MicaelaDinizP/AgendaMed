@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_bottom"
@@ -21,35 +21,40 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TableLayout
-        android:id="@+id/tableAlarmes"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*">
-        <TableRow android:id="@+id/rowRegistroAlarme">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/textViewMedEAlarmRegistroAusente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Não há alarmes definidos. Não há medicamentos cadastrados para definição do alarme."
-                android:textStyle="italic"
-                android:textSize="18sp"
-                android:gravity="center"
-                />
+        <TableLayout
+            android:id="@+id/tableAlarmes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
 
-        </TableRow>
+            <TableRow android:id="@+id/rowRegistroAlarme">
 
+                <TextView
+                    android:id="@+id/textViewMedEAlarmRegistroAusente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Não há alarmes definidos. Não há medicamentos cadastrados para definição do alarme."
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+
+            </TableRow>
     </TableLayout>
+</ScrollView>
 
-    <Button
-        android:id="@+id/btnDefinirAlarmes"
-        android:layout_width="186dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Definir Alarmes"
-        android:textSize="16sp" />
-
-</LinearLayout>
+<Button
+android:id="@+id/btnDefinirAlarmes"
+android:layout_width="186dp"
+android:layout_height="wrap_content"
+android:layout_gravity="center"
+android:layout_marginTop="20dp"
+    android:layout_marginBottom="40dp"
+android:text="Definir Alarmes"
+android:textSize="16sp" />
+    </LinearLayout>
