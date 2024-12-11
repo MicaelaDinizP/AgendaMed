@@ -1,11 +1,15 @@
 package devandroid.micaela.tcc_agendamed.view;
 
+import static android.widget.GridLayout.HORIZONTAL;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -14,10 +18,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
+import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 import devandroid.micaela.tcc_agendamed.model.MenuFragment;
 
@@ -74,7 +81,100 @@ public class AlarmeActivity extends AppCompatActivity {
     }
 
     private void desenharLinha(Medicamento med) {
-        // Aqui monta o registro
+        TableRow tableRow = new TableRow(this);
+        GridLayout gridLayout = new GridLayout(this);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        params.topMargin = 15;
+        gridLayout.setLayoutParams(params);
+
+        gridLayout.setColumnCount(2);
+        gridLayout.setRowCount(2);
+        gridLayout.setAlignmentMode(GridLayout.ALIGN_MARGINS);
+        gridLayout.setUseDefaultMargins(true);
+        gridLayout.setPadding(8, 8, 8, 8);
+
+        gridLayout.setBackgroundColor(Color.WHITE);
+
+        TextView textViewNomeMedicamento = new TextView(this);
+        textViewNomeMedicamento.setText(med.getNomeMedicamento());
+        textViewNomeMedicamento.setTextSize(18);
+        textViewNomeMedicamento.setTextColor(Color.BLACK);
+        textViewNomeMedicamento.setGravity(Gravity.CENTER);
+        textViewNomeMedicamento.setTypeface(null, Typeface.ITALIC);
+        GridLayout.LayoutParams params1 = new GridLayout.LayoutParams();
+        params1.rowSpec = GridLayout.spec(0);
+        params1.columnSpec = GridLayout.spec(0, 2);
+        textViewNomeMedicamento.setLayoutParams(params1);
+        gridLayout.addView(textViewNomeMedicamento);
+
+        String horariosOrdenados = ordenarHorariosParaVisualizacao(med);
+        TextView textViewHorariosAlarmes = new TextView(this);
+        textViewHorariosAlarmes.setText(horariosOrdenados);
+        textViewHorariosAlarmes.setTextSize(18);
+        textViewHorariosAlarmes.setTextColor(Color.BLACK);
+        textViewHorariosAlarmes.setGravity(Gravity.CENTER);
+        textViewHorariosAlarmes.setTypeface(null, Typeface.ITALIC);
+        gridLayout.addView(textViewHorariosAlarmes);
+
+        String diaDaSemanaOrdenado = ordenarDiasDaSemanaParaVisualizacao(med);
+        TextView textViewDiasDaSemana = new TextView(this);
+        textViewDiasDaSemana.setText(diaDaSemanaOrdenado);
+        textViewDiasDaSemana.setTextSize(18);
+        textViewDiasDaSemana.setTextColor(Color.BLACK);
+        textViewDiasDaSemana.setGravity(Gravity.CENTER);
+        textViewDiasDaSemana.setTypeface(null, Typeface.ITALIC);
+        gridLayout.addView(textViewDiasDaSemana);
+
+        tableRow.addView(gridLayout);
+
+        this.tabelaAlarmes.addView(tableRow);
+    }
+
+    private String ordenarDiasDaSemanaParaVisualizacao(Medicamento med) {
+        StringBuilder diasOrdenados = new StringBuilder();
+        Set<DiaDaSemana> diasAdicionados = new HashSet<>();
+
+        for (int i = 0; i < med.getDiasDaSemana().size(); i++) {
+            DiaDaSemana dia = med.getDiasDaSemana().get(i);
+
+            if (!diasAdicionados.contains(dia)) {
+                if (diasOrdenados.length() > 0) {
+                    diasOrdenados.append(" | ").append(dia.name());
+                } else {
+                    diasOrdenados.append(dia.name());
+                }
+
+                diasAdicionados.add(dia);
+
+                if (i % 2 != 0) {
+                    diasOrdenados.append("\n");
+                }
+            }
+        }
+        return diasOrdenados.toString();
+    }
+
+    private String ordenarHorariosParaVisualizacao(Medicamento med) {
+        StringBuilder horariosOrdenados = new StringBuilder();
+        boolean isFirst = true;
+        for (int i = 0; i < med.getListaHorarios().size(); i++) {
+            String hora = med.getListaHorarios().get(i);
+
+            if (!isFirst) {
+                horariosOrdenados.append(" | ");
+            }
+            horariosOrdenados.append(hora);
+            if (i != 0 && i % 2 == 1) {
+                horariosOrdenados.append("\n");
+            }
+            isFirst = false;
+        }
+
+        return horariosOrdenados.toString();
     }
 
     private boolean filtrarAlarmesDefinidos() {
