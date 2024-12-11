@@ -58,7 +58,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_MEDICAMENTO_ID + " INTEGER, " +
                     COLUMN_HORARIO + " TEXT NOT NULL, " + //HH:MM:SS
-                    " FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID + ") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE);";
+                    " FOREIGN KEY (" + COLUMN_MEDICAMENTO_ID + ") REFERENCES " + TABLE_MEDICAMENTO + "(" + COLUMN_ID + ") ON DELETE CASCADE ON UPDATE CASCADE);";
 
     private static final String TABLE_USUARIO_CREATE =
             "CREATE TABLE " + TABLE_USUARIO + " (" +
@@ -105,6 +105,13 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
 
         onCreate(banco);
     }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys = ON;");
+    }
+
 
     private void inserirDadosIniciais(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + TABLE_MANUAL + " (" + COLUMN_PERGUNTA +","+ COLUMN_CONTEUDO + ") " +
