@@ -203,7 +203,7 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
 
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
-
+        this.listaHorarios.clear();
         for (int i = 0; i < qtdRegistros; i++) {
             TableRow linhaAtual = (TableRow) tabelaHorarios.getChildAt(i);
             for (int j = 0; j < linhaAtual.getChildCount(); j++) {
