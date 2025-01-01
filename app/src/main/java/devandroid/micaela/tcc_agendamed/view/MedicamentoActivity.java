@@ -86,28 +86,22 @@ public class MedicamentoActivity extends AppCompatActivity {
         TableLayout tableMedicamentos = findViewById(R.id.tableMedicamentos);
         TableRow rowTitulos = findViewById(R.id.rowTitulos);
 
-        // Se rowTitulos for nulo, cria uma nova TableRow
         if (rowTitulos == null) {
             rowTitulos = new TableRow(this);
-            rowTitulos.setId(View.generateViewId()); // Gera um ID único
-            // Adiciona a nova TableRow ao TableLayout
+            rowTitulos.setId(View.generateViewId());
             tableMedicamentos.addView(rowTitulos);
         } else {
-            // Se já existe, remove os views existentes
             rowTitulos.removeAllViews();
         }
-
-        // Criar novo TextView
         TextView textViewRegistroAusente = new TextView(this);
         textViewRegistroAusente.setLayoutParams(new TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT)); // Layout width and height
-        textViewRegistroAusente.setPadding(20, 20, 20, 20); // Padding
-        textViewRegistroAusente.setText("Não há medicamentos cadastrados."); // Texto
-        textViewRegistroAusente.setTypeface(null, Typeface.ITALIC); // Estilo de texto (itálico)
-        textViewRegistroAusente.setGravity(Gravity.CENTER); // Gravidade (centro)
+                TableRow.LayoutParams.WRAP_CONTENT));
+        textViewRegistroAusente.setPadding(20, 20, 20, 20);
+        textViewRegistroAusente.setText("Não há medicamentos cadastrados.");
+        textViewRegistroAusente.setTypeface(null, Typeface.ITALIC);
+        textViewRegistroAusente.setGravity(Gravity.CENTER);
 
-        // Adicionar o novo TextView na TableRow
         rowTitulos.addView(textViewRegistroAusente);
     }
 
@@ -130,7 +124,6 @@ public class MedicamentoActivity extends AppCompatActivity {
                 medicamento.getQuantidadeDosesRestantes() <= medicamento.getQuantidadeEstoqueCritico();
 
         if (flagNecessaria) {
-            // Criação do LinearLayout para agrupar a flag e o nome do medicamento
             LinearLayout container = new LinearLayout(this);
             container.setOrientation(LinearLayout.VERTICAL);
             container.setLayoutParams(new TableRow.LayoutParams(
@@ -138,7 +131,6 @@ public class MedicamentoActivity extends AppCompatActivity {
             container.setPadding(8, 8, 8, 8);
             container.setGravity(Gravity.CENTER);
 
-            // Criação do TextView para a flag
             TextView flag = new TextView(this);
             flag.setTypeface(null, Typeface.BOLD);
             flag.setGravity(Gravity.CENTER);
@@ -156,20 +148,16 @@ public class MedicamentoActivity extends AppCompatActivity {
                 flag.setBackgroundColor(Color.YELLOW);
                 flag.setTextColor(Color.BLACK);
             }
-
-            // Adiciona a flag ao container
             container.addView(flag);
 
-            // Criação do TextView para o nome do medicamento
             TextView nomeMedicamento = new TextView(this);
             nomeMedicamento.setId(View.generateViewId());
             nomeMedicamento.setText(medicamento.getNomeMedicamento());
-            nomeMedicamento.setTextSize(18); // Aumenta o tamanho da fonte para 18sp
+            nomeMedicamento.setTextSize(18);
             nomeMedicamento.setGravity(Gravity.CENTER);
             nomeMedicamento.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            // Ajuste de cor de fundo com base na situação
             if (medicamento.isUsoPausado()) {
                 nomeMedicamento.setBackgroundColor(Color.BLUE);
                 nomeMedicamento.setTextColor(Color.WHITE);
@@ -181,24 +169,20 @@ public class MedicamentoActivity extends AppCompatActivity {
                 nomeMedicamento.setTextColor(Color.BLACK);
             }
 
-            // Adiciona o nome do medicamento ao container
             container.addView(nomeMedicamento);
 
-            // Adiciona o container à linha da tabela
             row.addView(container);
 
         } else {
-            // Criação do TextView para o nome do medicamento sem flag
             TextView nomeMedicamento = new TextView(this);
             nomeMedicamento.setId(View.generateViewId());
             nomeMedicamento.setText(medicamento.getNomeMedicamento());
-            nomeMedicamento.setTextSize(18); // Aumenta o tamanho da fonte para 18sp
+            nomeMedicamento.setTextSize(18);
             nomeMedicamento.setPadding(8, 8, 8, 8);
             nomeMedicamento.setGravity(Gravity.CENTER);
             nomeMedicamento.setLayoutParams(new TableRow.LayoutParams(
                     0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
 
-            // Ajuste de cor de fundo com base na situação (sem flag)
             if (medicamento.getQuantidadeDosesRestantes() == 0) {
                 nomeMedicamento.setBackgroundColor(Color.RED);
                 nomeMedicamento.setTextColor(Color.WHITE);
@@ -210,11 +194,9 @@ public class MedicamentoActivity extends AppCompatActivity {
                 nomeMedicamento.setTextColor(Color.BLACK);
             }
 
-            // Adiciona o nome do medicamento diretamente à linha da tabela
             row.addView(nomeMedicamento);
         }
 
-        // Criação do botão de edição
         Button botaoEditar = new Button(this);
         botaoEditar.setText("Editar");
         botaoEditar.setPadding(8, 8, 8, 8);
@@ -229,10 +211,8 @@ public class MedicamentoActivity extends AppCompatActivity {
             }
         });
 
-        // Adiciona o botão de edição à linha da tabela
         row.addView(botaoEditar);
 
-        // Adiciona a linha à tabela
         this.tabelaMedicamentos.addView(row);
     }
 

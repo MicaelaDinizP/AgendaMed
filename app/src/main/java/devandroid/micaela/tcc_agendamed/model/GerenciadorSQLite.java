@@ -121,7 +121,7 @@ public class GerenciadorSQLite extends SQLiteOpenHelper {
                 "ac consectetur metus venenatis. Ut tempus elit ut purus porta, vel mattis purus auctor. Nulla facilisi. " +
                 "Donec sit amet ullamcorper enim, et sodales justo. Suspendisse potenti.');");
 
-        db.execSQL("INSERT INTO " + TABLE_DIA_DA_SEMANA + " (" + COLUMN_DIA_DA_SEMANA + ") VALUES ('Segunda'), ('Terca'), ('Quarta')," +
-                " ('Quinta'), ('Sexta'), ('Sabado'), ('Domingo');");
+        db.execSQL("INSERT INTO " + TABLE_DIA_DA_SEMANA + " ("+COLUMN_ID+"," + COLUMN_DIA_DA_SEMANA + ") VALUES (2,'Segunda'), (3,'Terca'), (4,'Quarta')," +
+                " (5,'Quinta'), (6,'Sexta'), (7,'Sabado'), (1,'Domingo');");
     }
 }

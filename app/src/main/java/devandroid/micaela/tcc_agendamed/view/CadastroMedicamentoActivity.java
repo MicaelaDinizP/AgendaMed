@@ -1,9 +1,24 @@
 package devandroid.micaela.tcc_agendamed.view;
 
+import android.Manifest;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioAttributes;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,19 +28,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.text.TextWatcher;
 import android.text.Editable;
-
+import devandroid.micaela.tcc_agendamed.model.AlarmeReceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
+import devandroid.micaela.tcc_agendamed.model.GerenciadorAlarme;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class CadastroMedicamentoActivity extends AppCompatActivity {
+    private static final String CHANNEL_ID = "alarme_channel";
     private MedicamentoController medicamentoController;
     private EditText editTextNomeMedicamento;
     private EditText editTextDosesPorEmbalagem;
@@ -47,7 +66,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
 
         ArrayList<CheckBox> cbDiasDaSemana = new ArrayList<CheckBox>();
         this.listaHorarios = new ArrayList<>();
-
         this.medicamentoController = new MedicamentoController(CadastroMedicamentoActivity.this);
         this.editTextNomeMedicamento = findViewById(R.id.editTextNomeMedicamento);
         this.editTextDosesPorEmbalagem = findViewById(R.id.editTextDosesPorEmbalagem);
@@ -65,7 +83,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaSexta));
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaSabado));
         cbDiasDaSemana.add(findViewById(R.id.checkBoxDiaDomingo));
-
         this.editTextDosesPorDia.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -116,6 +133,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                     long idRetornado = medicamentoController.inserir(medicamento);
                     if(idRetornado != -1){
                         Toast.makeText(CadastroMedicamentoActivity.this, "Medicamento  cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                        programarAlarmes(medicamento);
                         finish();
                     }else{
                         Toast.makeText(CadastroMedicamentoActivity.this, "ERRO: Não foi possível cadastrar o medicamento." , Toast.LENGTH_SHORT).show();
@@ -127,6 +145,92 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
             }
         });
     }
+    /////////////////////// ALARMESSS //////////////////////////////
+    private void programarAlarmes(Medicamento medicamento) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+        criarNotificationChannel();
+        agendarMultiplosAlarmes(this, medicamento);
+    }
+    public void agendarMultiplosAlarmes(Context context, Medicamento medicamento ) {
+        List<DiaDaSemana> dias = medicamento.getDiasDaSemana();
+        List<String> horarios = medicamento.getListaHorarios();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                startActivity(intent);
+                return; // Retorna se a permissão não foi concedida
+            }
+        }
+        for (DiaDaSemana dia : dias) {
+            for (String h : horarios) {
+                int[] horario = formatarHorario(h);
+
+                int horaFormatada = horario[0];
+                int minutoFormatado = horario[1];
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, horaFormatada);
+                calendar.set(Calendar.MINUTE, minutoFormatado);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+                calendar.set(Calendar.DAY_OF_WEEK, dia.getValor());
+
+                if (calendar.before(Calendar.getInstance())) {
+                    calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                }
+
+                Intent intent = new Intent(this, AlarmeReceiver.class);
+                intent.putExtra("medicamento",medicamento);
+                int requestCode =  calcularRequestCode(medicamento.getId(),dia,horaFormatada,minutoFormatado);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                if (alarmManager != null) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+            }
+        }
+    }
+    public static int calcularRequestCode(long medicamentoId, DiaDaSemana dia, int hora, int minuto) {
+        return (int)medicamentoId * 10000 + dia.getValor() * 1000 + hora * 100 + minuto;
+    }
+    private static int[] formatarHorario(String horario) {
+        int[] horariosInt = new int[2];
+
+        String[] horarioSplit = horario.split(":");
+        horariosInt[0] = Integer.parseInt(horarioSplit[0]);
+        horariosInt[1] = Integer.parseInt(horarioSplit[1]);
+
+        return horariosInt;
+    }
+    private void criarNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Alarme Channel";
+            String description = "Canal para alarmes";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            channel.setSound(soundUri, new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build());
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+    ///////////////////////////////////////////////////////
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
 

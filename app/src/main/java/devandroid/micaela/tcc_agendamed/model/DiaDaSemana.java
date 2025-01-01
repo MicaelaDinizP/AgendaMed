@@ -6,13 +6,13 @@ import android.os.Parcelable;
 import java.util.Locale;
 
 public enum DiaDaSemana implements Parcelable {
-    SEGUNDA(1),
-    TERCA(2),
-    QUARTA(3),
-    QUINTA(4),
-    SEXTA(5),
-    SABADO(6),
-    DOMINGO(7);
+    SEGUNDA(2),
+    TERCA(3),
+    QUARTA(4),
+    QUINTA(5),
+    SEXTA(6),
+    SABADO(7),
+    DOMINGO(1);
 
     private int valor;
 
@@ -65,7 +65,6 @@ public enum DiaDaSemana implements Parcelable {
             int valor = in.readInt();
             return fromInt(valor);
         }
-
         @Override
         public DiaDaSemana[] newArray(int size) {
             return new DiaDaSemana[size];
