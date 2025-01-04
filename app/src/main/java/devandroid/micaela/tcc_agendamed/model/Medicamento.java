@@ -150,7 +150,9 @@ public class Medicamento implements Parcelable {
     }
 
     public void setQuantidadeDosesRestantes(int quantidadeDosesRestantes) {
-        this.quantidadeDosesRestantes = quantidadeDosesRestantes;
+        if(quantidadeDosesRestantes >= 0){
+            this.quantidadeDosesRestantes = quantidadeDosesRestantes;
+        }
     }
 
     public List<String> getListaHorarios() {

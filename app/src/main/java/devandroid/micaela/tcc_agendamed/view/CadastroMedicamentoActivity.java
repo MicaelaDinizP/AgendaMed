@@ -131,6 +131,7 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                             checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
                     medicamentoController.abrirConexao();
                     long idRetornado = medicamentoController.inserir(medicamento);
+                    medicamento.setId(idRetornado);
                     if(idRetornado != -1){
                         Toast.makeText(CadastroMedicamentoActivity.this, "Medicamento  cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                         programarAlarmes(medicamento);
@@ -145,7 +146,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
             }
         });
     }
-    /////////////////////// ALARMESSS //////////////////////////////
     private void programarAlarmes(Medicamento medicamento) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -153,84 +153,10 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
             }
         }
-        criarNotificationChannel();
-        agendarMultiplosAlarmes(this, medicamento);
+        GerenciadorAlarme.criarNotificationChannel(this);
+        GerenciadorAlarme.agendarMultiplosAlarmes(this, medicamento);
     }
-    public void agendarMultiplosAlarmes(Context context, Medicamento medicamento ) {
-        List<DiaDaSemana> dias = medicamento.getDiasDaSemana();
-        List<String> horarios = medicamento.getListaHorarios();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                startActivity(intent);
-                return; // Retorna se a permissão não foi concedida
-            }
-        }
-        for (DiaDaSemana dia : dias) {
-            for (String h : horarios) {
-                int[] horario = formatarHorario(h);
 
-                int horaFormatada = horario[0];
-                int minutoFormatado = horario[1];
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, horaFormatada);
-                calendar.set(Calendar.MINUTE, minutoFormatado);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-
-                calendar.set(Calendar.DAY_OF_WEEK, dia.getValor());
-
-                if (calendar.before(Calendar.getInstance())) {
-                    calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                }
-
-                Intent intent = new Intent(this, AlarmeReceiver.class);
-                intent.putExtra("medicamento",medicamento);
-                int requestCode =  calcularRequestCode(medicamento.getId(),dia,horaFormatada,minutoFormatado);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
-
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                if (alarmManager != null) {
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                }
-            }
-        }
-    }
-    public static int calcularRequestCode(long medicamentoId, DiaDaSemana dia, int hora, int minuto) {
-        return (int)medicamentoId * 10000 + dia.getValor() * 1000 + hora * 100 + minuto;
-    }
-    private static int[] formatarHorario(String horario) {
-        int[] horariosInt = new int[2];
-
-        String[] horarioSplit = horario.split(":");
-        horariosInt[0] = Integer.parseInt(horarioSplit[0]);
-        horariosInt[1] = Integer.parseInt(horarioSplit[1]);
-
-        return horariosInt;
-    }
-    private void criarNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Alarme Channel";
-            String description = "Canal para alarmes";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-
-            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            channel.setSound(soundUri, new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .build());
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-    }
-    ///////////////////////////////////////////////////////
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
 

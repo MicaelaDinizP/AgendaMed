@@ -26,6 +26,7 @@ public class AlarmeReceiver extends BroadcastReceiver {
         int NOTIFICATION_ID = (int) System.currentTimeMillis();
         Intent actionIntent = new Intent(context, ActionReceiver.class);
         actionIntent.putExtra("notification_id", NOTIFICATION_ID);
+        actionIntent.putExtra("medicamento", medicamento);
         PendingIntent actionPendingIntent = PendingIntent.getBroadcast(
                 context,
                 0,
