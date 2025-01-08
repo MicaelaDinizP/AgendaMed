@@ -131,7 +131,7 @@ public class ColecaoMedicamentosEmSQLite implements ColecaoMedicamentos {
         cursor.close();
         return new ArrayList<>(medicamentoMap.values());
     }
-    public Medicamento obter(long id, Usuario usuario) {
+    public Medicamento obterPorId(long id, Usuario usuario) {
         Medicamento medicamento = null;
 
         String query = "SELECT " +
@@ -193,7 +193,72 @@ public class ColecaoMedicamentosEmSQLite implements ColecaoMedicamentos {
         return medicamento;
 
     }
-    public boolean editar(Medicamento medicamento) {
+
+    public Medicamento obterPorNome(String nome, Usuario usuario) {
+        Medicamento medicamento = null;
+
+        String query = "SELECT " +
+                "m." + GerenciadorSQLite.COLUMN_ID + " AS medicamentoID, " +
+                "m." + GerenciadorSQLite.COLUMN_NOME + " AS nomeMedicamento, " +
+                "m." + GerenciadorSQLite.COLUMN_QUANTIDADE_DOSES + " AS quantidadeDoses, " +
+                "m." + GerenciadorSQLite.COLUMN_DOSES_POR_DIA + " AS dosesPorDia, " +
+                "m." + GerenciadorSQLite.COLUMN_QUANTIDADE_ESTOQUE_CRITICO + " AS quantidadeEstoqueCritico, " +
+                "m." + GerenciadorSQLite.COLUMN_QUANTIDADE_DOSES_RESTANTES + " AS quantidadeDosesRestantes, " +
+                "m." + GerenciadorSQLite.COLUMN_USO_PAUSADO + " AS usoPausado, " +
+                "m." + GerenciadorSQLite.COLUMN_CRIAR_ALARMES + " AS criarAlarmes, " +
+                "m." + GerenciadorSQLite.COLUMN_ALARME_ATIVO + " AS alarmeAtivo, " +
+                "hd." + GerenciadorSQLite.COLUMN_HORARIO + " AS horarioDose, " +
+                "dds." + GerenciadorSQLite.COLUMN_DIA_DA_SEMANA + " AS diaDaSemana " +
+                "FROM " + GerenciadorSQLite.TABLE_MEDICAMENTO + " m " +
+                "LEFT JOIN " + GerenciadorSQLite.TABLE_HORARIOS_DOSES + " hd ON m." + GerenciadorSQLite.COLUMN_ID + " = hd." + GerenciadorSQLite.COLUMN_MEDICAMENTO_ID + " " +
+                "LEFT JOIN " + GerenciadorSQLite.TABLE_MEDICAMENTO_DIA_DA_SEMANA + " mds ON m." + GerenciadorSQLite.COLUMN_ID + " = mds." + GerenciadorSQLite.COLUMN_MEDICAMENTO_ID + " " +
+                "LEFT JOIN " + GerenciadorSQLite.TABLE_DIA_DA_SEMANA + " dds ON mds." + GerenciadorSQLite.COLUMN_DIA_DA_SEMANA_ID + " = dds." + GerenciadorSQLite.COLUMN_ID +
+                " WHERE m." + GerenciadorSQLite.COLUMN_NOME + " = ? AND " + GerenciadorSQLite.COLUMN_USUARIO_ID + " = ?";
+
+        Cursor cursor = bancoDeDados.rawQuery(query, new String[]{nome, String.valueOf(usuario.getId())});
+
+        if (cursor.moveToFirst()) {
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow("medicamentoID"));
+            String nomeMedicamento = cursor.getString(cursor.getColumnIndexOrThrow("nomeMedicamento"));
+            int quantidadeDoses = cursor.getInt(cursor.getColumnIndexOrThrow("quantidadeDoses"));
+            int dosesPorDia = cursor.getInt(cursor.getColumnIndexOrThrow("dosesPorDia"));
+            int quantidadeEstoqueCritico = cursor.getInt(cursor.getColumnIndexOrThrow("quantidadeEstoqueCritico"));
+            int quantidadeDosesRestantes = cursor.getInt(cursor.getColumnIndexOrThrow("quantidadeDosesRestantes"));
+            boolean usoPausado = cursor.getInt(cursor.getColumnIndexOrThrow("usoPausado")) != 0;
+            boolean criarAlarmes = cursor.getInt(cursor.getColumnIndexOrThrow("criarAlarmes")) != 0;
+            boolean alarmeAtivo = cursor.getInt(cursor.getColumnIndexOrThrow("alarmeAtivo")) != 0;
+
+            medicamento = new Medicamento(nomeMedicamento, usuario, quantidadeDoses, new ArrayList<>(), dosesPorDia, quantidadeEstoqueCritico,
+                    quantidadeDosesRestantes,
+                    usoPausado,
+                    criarAlarmes,
+                    alarmeAtivo,
+                    new ArrayList<>()
+            );
+            medicamento.setId(id);
+
+            do {
+                String horarioDose = cursor.getString(cursor.getColumnIndexOrThrow("horarioDose"));
+                if (horarioDose != null && !medicamento.getListaHorarios().contains(horarioDose)) {
+                    medicamento.getListaHorarios().add(horarioDose);
+                }
+
+                String diaDaSemana = cursor.getString(cursor.getColumnIndexOrThrow("diaDaSemana"));
+                if (diaDaSemana != null) {
+                    DiaDaSemana dia = DiaDaSemana.getDiaDaSemana(diaDaSemana);
+                    if (!medicamento.getDiasDaSemana().contains(dia)) {
+                        medicamento.getDiasDaSemana().add(dia);
+                    }
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return medicamento;
+    }
+
+    public long editar(Medicamento medicamento) {
+        long novoId = -1;
         bancoDeDados.beginTransaction();
         try {
             int rowsAffected = bancoDeDados.delete(
@@ -202,18 +267,15 @@ public class ColecaoMedicamentosEmSQLite implements ColecaoMedicamentos {
                     new String[]{String.valueOf(medicamento.getId())}
             );
             if (rowsAffected > 0) {
-                this.inserir(medicamento);
+                novoId = this.inserir(medicamento);
                 bancoDeDados.setTransactionSuccessful();
-                return true;
-            } else {
-                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         } finally {
             bancoDeDados.endTransaction();
         }
+        return novoId;
     }
     public boolean remover(long id) {
         bancoDeDados.beginTransaction();

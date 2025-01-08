@@ -82,7 +82,35 @@ public class GerenciadorAlarme {
             }
         }
     }
+    public static void cancelarMultiplosAlarmes(Context context, Medicamento medicamento ) {
+        List<DiaDaSemana> dias = medicamento.getDiasDaSemana();
+        List<String> horarios = medicamento.getListaHorarios();
 
+        for (DiaDaSemana dia : dias) {
+            for (String h : horarios) {
+                int[] horario = formatarHorario(h);
+                int requestCode = calcularRequestCode(medicamento.getId(), dia, horario[0], horario[1]);
+
+                Intent intent = new Intent(context, AlarmeReceiver.class);
+                intent.putExtra("medicamento", medicamento);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        requestCode,
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE
+                );
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    alarmManager.cancel(pendingIntent);
+                }
+            }
+        }
+    }
+    public static void editarAlarmes( Context context, Medicamento medicamento ){
+            cancelarMultiplosAlarmes(context, medicamento);
+            agendarMultiplosAlarmes(context, medicamento);
+        }
     public static int calcularRequestCode(long medicamentoId, DiaDaSemana dia, int hora, int minuto) {
         return (int) medicamentoId * 10000 + dia.getValor() * 1000 + hora * 100 + minuto;
     }

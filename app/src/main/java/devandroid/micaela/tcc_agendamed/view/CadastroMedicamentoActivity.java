@@ -132,9 +132,12 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                     medicamentoController.abrirConexao();
                     long idRetornado = medicamentoController.inserir(medicamento);
                     medicamento.setId(idRetornado);
+                    Log.d("ERROO", "idRetornado é: "+idRetornado);
                     if(idRetornado != -1){
                         Toast.makeText(CadastroMedicamentoActivity.this, "Medicamento  cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                        programarAlarmes(medicamento);
+                        if(medicamento.isCriarAlarmes()){
+                            programarAlarmes(medicamento);
+                        }
                         finish();
                     }else{
                         Toast.makeText(CadastroMedicamentoActivity.this, "ERRO: Não foi possível cadastrar o medicamento." , Toast.LENGTH_SHORT).show();
@@ -154,9 +157,10 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
             }
         }
         GerenciadorAlarme.criarNotificationChannel(this);
-        GerenciadorAlarme.agendarMultiplosAlarmes(this, medicamento);
+        if(!medicamento.isUsoPausado()){
+            GerenciadorAlarme.agendarMultiplosAlarmes(this, medicamento);
+        }
     }
-
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
 

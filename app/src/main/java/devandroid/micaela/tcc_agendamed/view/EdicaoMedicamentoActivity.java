@@ -1,8 +1,11 @@
 package devandroid.micaela.tcc_agendamed.view;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ import java.util.List;
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
+import devandroid.micaela.tcc_agendamed.model.GerenciadorAlarme;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class EdicaoMedicamentoActivity extends AppCompatActivity {
@@ -130,9 +135,13 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                             checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
                     medicamento.setId(medicamentoParaEditar.getId());
                     medicamentoController.abrirConexao();
-                    boolean foiEditado = medicamentoController.editar(medicamento);
-                    if(foiEditado == true){
+                    long idRetornado = medicamentoController.editar(medicamento);
+                    medicamento.setId(idRetornado);
+                    if(idRetornado != -1){
                         Toast.makeText(EdicaoMedicamentoActivity.this, "Medicamento alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                        if(medicamento.isCriarAlarmes()){
+                            programarAlarmes(medicamento);
+                        }
                         finish();
                     }else{
                         Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Não foi possível alterar o medicamento." , Toast.LENGTH_SHORT).show();
@@ -143,6 +152,18 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void programarAlarmes(Medicamento medicamento) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
+        GerenciadorAlarme.criarNotificationChannel(this);
+        if(!medicamento.isUsoPausado()){
+            GerenciadorAlarme.editarAlarmes(this, medicamento);
+        }
     }
 
     private void montarMedicamentoParaEdicao() {

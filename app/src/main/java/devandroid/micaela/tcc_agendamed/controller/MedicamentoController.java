@@ -26,12 +26,15 @@ public class MedicamentoController {
     public List<Medicamento> obterTodos(Usuario usuario){
         return this.colecaoMedicamentos.obterTodos(usuario);
     }
+    public Medicamento obterPorNome(String nomeMedicamento, Usuario usuario){
+        return this.colecaoMedicamentos.obterPorNome(nomeMedicamento, usuario);
+    }
 
     public long inserir(Medicamento medicamento) {
         return this.colecaoMedicamentos.inserir(medicamento);
     }
 
-    public boolean editar(Medicamento medicamento){
+    public long editar(Medicamento medicamento){
         return this.colecaoMedicamentos.editar(medicamento);
     }
 

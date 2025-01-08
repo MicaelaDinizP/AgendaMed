@@ -26,8 +26,7 @@ public class SplashScreenProgramarAlarmesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Medicamento medicamento = intent.getParcelableExtra("medicamento");
         medicamento.setQuantidadeDosesRestantes(medicamento.getQuantidadeDosesRestantes()-1);
-        boolean status = medicamentoController.editar(medicamento);
-
+        medicamentoController.editar(medicamento);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
