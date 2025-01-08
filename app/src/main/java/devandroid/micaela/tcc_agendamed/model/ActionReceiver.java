@@ -23,18 +23,13 @@ public class ActionReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancel(notificationId);
 
-        // Crie o Intent para a nova Activity
         Intent intent2 = new Intent(context, SplashScreenProgramarAlarmesActivity.class);
 
-        // Obtenha o objeto "medicamento" e passe para a nova Activity
         Medicamento med = intent.getParcelableExtra("medicamento");
         intent2.putExtra("medicamento", med);
 
-        // Defina a flag para garantir que a Activity será iniciada corretamente
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Inicie a nova Activity
         context.startActivity(intent2);
     }
-
 }
