@@ -186,7 +186,9 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
 
         if (!horariosValidos) {
             this.listaHorarios.clear();
-            Toast.makeText(this, "Horário inválido encontrado!!!", Toast.LENGTH_SHORT).show();
+            int dose = Integer.parseInt(String.valueOf(this.editTextDosesPorDia.getText()));
+            Toast.makeText(this, "Horário inválido!", Toast.LENGTH_SHORT).show();
+            atualizarTabelaHorarioDasDoses(dose);
         }
     }
     private void atualizarTabelaHorarioDasDoses(int dosesPorDia) {
