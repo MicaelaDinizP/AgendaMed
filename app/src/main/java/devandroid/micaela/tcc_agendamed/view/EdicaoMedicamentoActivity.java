@@ -214,6 +214,7 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
 
             EditText horarioDesejado = new EditText(this);
             horarioDesejado.setTextSize(17);
+            horarioDesejado.setHint("hora:min ex: 00:00");
             horarioDesejado.setTextColor(Color.parseColor("#000000"));
 
             linha.addView(numRegistro);
@@ -224,17 +225,32 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
 
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
-        this.listaHorarios.clear();
+        boolean horariosValidos = true;
         for (int i = 0; i < qtdRegistros; i++) {
             TableRow linhaAtual = (TableRow) tabelaHorarios.getChildAt(i);
             for (int j = 0; j < linhaAtual.getChildCount(); j++) {
                 View view = linhaAtual.getChildAt(j);
                 if (view instanceof EditText) {
                     EditText editText = (EditText) view;
-                    String horario = editText.getText().toString();
+                    String horario = editText.getText().toString().trim();
+
+                    if (!horario.matches("^([01]?[0-9]|2[0-3]):([0-5]?[0-9])$")) {
+                        horariosValidos = false;
+                        break;
+                    }
                     this.listaHorarios.add(horario);
                 }
             }
+            if (!horariosValidos) {
+                break;
+            }
+        }
+
+        if (!horariosValidos) {
+            this.listaHorarios.clear();
+            int dose = Integer.parseInt(String.valueOf(this.editTextDosesPorDia.getText()));
+            Toast.makeText(this, "Horário inválido!", Toast.LENGTH_SHORT).show();
+            atualizarTabelaHorarioDasDoses(dose);
         }
     }
     private void montarSelecaoDiasDaSemana() {
