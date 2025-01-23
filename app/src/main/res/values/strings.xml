@@ -3,7 +3,7 @@
         <string name="app_name">AgendaMed</string>
         <string name="txt_welcome_message">Bem-vindo(a) ao</string>
         <string name="txt_app_subtitle">Gerenciador de \nmedicamentos</string>
-        <string name="txt_edit_entry_name">Digite seu nome</string>
+        <string name="txt_edit_entry_name">Digite seu nome:</string>
         <string name="txt_hint_edit_entry_name">seu nome</string>
         <string name="txt_button_continue">Continuar</string>
 

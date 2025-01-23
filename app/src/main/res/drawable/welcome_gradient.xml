@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Camada de gradiente -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+            android:angle="45"
+            android:startColor="#D4A4FF"
+            android:centerColor="#B9A4FF"
+            android:endColor="#A4C3FF"
+            android:gradientRadius="90dp"
+            android:useLevel="false" />
+        </shape>
+    </item>
+</layer-list>
