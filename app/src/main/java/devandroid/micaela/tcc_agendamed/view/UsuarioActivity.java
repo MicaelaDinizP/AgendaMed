@@ -1,6 +1,7 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -93,9 +95,10 @@ public class UsuarioActivity extends AppCompatActivity {
         TextView nomeUsuario = new TextView(this);
         nomeUsuario.setId(View.generateViewId());
         nomeUsuario.setText(nome);
+        nomeUsuario.setTextSize(20);
         nomeUsuario.setPadding(8, 8, 8, 8);
         nomeUsuario.setGravity(Gravity.CENTER);
-        nomeUsuario.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        nomeUsuario.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f));
         nomeUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +110,8 @@ public class UsuarioActivity extends AppCompatActivity {
         botaoEditar.setText("Editar");
         botaoEditar.setPadding(8, 8, 8, 8);
         botaoEditar.setGravity(Gravity.CENTER);
-        botaoEditar.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        botaoEditar.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.backgroundBasePurple));
+        botaoEditar.setLayoutParams(new TableRow.LayoutParams(15, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

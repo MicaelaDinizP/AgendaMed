@@ -75,7 +75,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:textColor="@color/fontHintBasePurple"
-        android:textSize="25dp"
+        android:textSize="21dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

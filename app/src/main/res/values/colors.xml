@@ -8,7 +8,9 @@
     <color name="fontBasePurple">#470064</color>
     <color name="fontHintBasePurple">#512D7B</color>
     <color name="buttonBasePurple">#730FC3</color>
+    <color name="buttomBasePurple2">#8840A8</color>
     <color name="buttonBaseDeepPurple">#220135</color>
     <color name="backgroundEditTextWhite">#F2F5F7</color>
+    <color name="backgroundComfyWhite">#F8F8FF</color>
 
 </resources>

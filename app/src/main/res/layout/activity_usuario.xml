@@ -3,41 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backgroundComfyWhite">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_top"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:theme="@style/ThemeOverlay.CustomMenuStyle"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryDark"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:theme="@style/ThemeOverlay.CustomMenuStyle"/>
 
     <TableLayout
         android:id="@+id/tableCamposUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:layout_marginTop="0dp"
+        android:stretchColumns="*"
+        android:background="@drawable/table_regular_border">
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="Usuários" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Editar"
-                android:padding="8dp" />
+                android:textSize="20dp"
+                android:text="@string/users" />
         </TableRow>
     </TableLayout>
     <ScrollView
@@ -50,16 +45,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="*">
-        </TableLayout>>
+        </TableLayout>
     </ScrollView>
     <Button
         android:id="@+id/btnCriarUsuario"
         android:layout_width="186dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:backgroundTint="@color/buttomBasePurple2"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="35dp"
-        android:text="Criar Usuário"
-        android:textSize="16sp" />
+        android:text="Criar Usuário" />
 
 </LinearLayout>

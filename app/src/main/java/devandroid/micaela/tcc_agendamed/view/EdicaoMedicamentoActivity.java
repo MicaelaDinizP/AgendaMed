@@ -203,6 +203,8 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
     }
     private void atualizarTabelaHorarioDasDoses(int dosesPorDia) {
         this.tabelaHorarios.removeAllViews();
+        listaHorarios = new ArrayList<String>();
+
         for (int i = 0; i < dosesPorDia; i++) {
             TableRow linha = new TableRow(this);
             TextView numRegistro = new TextView(this);
@@ -222,10 +224,10 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
             this.tabelaHorarios.addView(linha);
         }
     }
-
     private void obterListaDeHorarios() {
         int qtdRegistros = this.tabelaHorarios.getChildCount();
         boolean horariosValidos = true;
+        this.listaHorarios = new ArrayList<String>();
         for (int i = 0; i < qtdRegistros; i++) {
             TableRow linhaAtual = (TableRow) tabelaHorarios.getChildAt(i);
             for (int j = 0; j < linhaAtual.getChildCount(); j++) {

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/backgroundBasePurple"
+    android:background="@drawable/welcome_gradient"
     android:padding="16dp">
 
     <TextView
@@ -12,9 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/app_name"
         android:textColor="@color/fontBaseBlack"
-        android:textSize="50sp" />
+        android:textSize="60sp" />
 
     <TextView
         android:id="@+id/textViewSubTitulo"
@@ -27,16 +30,44 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="197dp"
+            android:layout_height="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.432"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/ic_logo_app_dois_foreground" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="158dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="76dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@mipmap/ic_logo_app_foreground" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/textViewMensagemLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="Selecione um usuário \n para continuar"
+        android:text="@string/txt_selecao_usuario"
         android:textColor="@color/fontBasePurple"
         android:textSize="29sp" />
 

@@ -1,8 +1,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/transparent" />
+    <solid android:color="@color/backgroundBasePurple" />
     <stroke
         android:width="2dp"
-    android:color="@color/buttonBasePurple" />
-    <corners android:radius="3dp" />
-    <solid android:color="@color/backgroundEditTextWhite" />
+    android:color="@color/buttonBaseDeepPurple" />
+    <corners android:radius="1dp" />
+    <solid android:color="@color/backgroundComfyWhite" />
 </shape>

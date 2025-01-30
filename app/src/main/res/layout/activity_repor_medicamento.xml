@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e9e9e9">
+    android:background="@color/backgroundComfyWhite">
 
-    <!-- Texto Superior -->
     <TextView
         android:id="@+id/textViewReporMedicamento"
         android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botão Fechar -->
     <ImageButton
         android:id="@+id/btnFechar"
         android:layout_width="25dp"
@@ -32,8 +30,6 @@
         app:layout_constraintStart_toEndOf="@id/textViewReporMedicamento"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close_foreground" />
-
-    <!-- Divisor Superior -->
     <View
         android:id="@+id/dividerTop"
         android:layout_width="0dp"
@@ -41,12 +37,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/buttonBasePurple"
+        android:background="@color/buttonBaseDeepPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewReporMedicamento" />
 
-    <!-- Linear Layout com margem fixa -->
     <LinearLayout
         android:id="@+id/linearLayoutForm"
         android:layout_width="0dp"
@@ -57,7 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Tabela -->
         <TableLayout
             android:id="@+id/tableCamposMedicamento"
             android:layout_width="match_parent"
@@ -70,17 +64,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
+                    android:textSize="20dp"
                     android:text="Medicamentos" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
-                    android:text="Editar" />
+                    android:text="Editar"
+                    android:textSize="20dp"/>
             </TableRow>
         </TableLayout>
 
-        <!-- ScrollView -->
         <ScrollView
             android:id="@+id/scrllFormMedicamento"
             android:layout_width="match_parent"
@@ -108,16 +103,14 @@
             </TableLayout>
         </ScrollView>
     </LinearLayout>
-
-     <!-- Divisor Inferior -->
-
      <Button
          android:id="@+id/btnSalvarReposicao"
          android:layout_width="186dp"
          android:layout_height="wrap_content"
-         android:layout_gravity="center"
          android:text="Salvar"
          android:textSize="16sp"
+         android:layout_gravity="center"
+         android:backgroundTint="@color/buttomBasePurple2"
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.497"
@@ -131,7 +124,7 @@
         android:layout_height="3dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/buttonBasePurple"
+        android:background="@color/backgroundComfyWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

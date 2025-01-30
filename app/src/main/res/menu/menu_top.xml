@@ -4,11 +4,11 @@
         android:id="@+id/menu_active_user"
         android:title="@string/active_user"
         android:icon="@drawable/ic_active_user_foreground"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_active_user_name"
         android:title="activeusename"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_space3"
         android:title="|"

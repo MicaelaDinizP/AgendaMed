@@ -41,7 +41,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/buttonBasePurple"
+        android:background="@color/buttonBaseDeepPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewEditarMedicamento" />
@@ -144,6 +144,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Segunda-feira"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -151,6 +152,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Terça-feira"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -158,6 +160,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Quarta-feira"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -165,6 +168,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Quinta-feira"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -172,6 +176,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Sexta-feira"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -179,6 +184,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Sábado"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -186,6 +192,7 @@
                     android:layout_width="145dp"
                     android:layout_height="27dp"
                     android:text="Domingo"
+                    android:textColor="@color/black"
                     android:textSize="16sp"/>
 
             </LinearLayout>

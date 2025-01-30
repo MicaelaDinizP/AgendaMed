@@ -1,6 +1,8 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.List;
 
@@ -46,10 +50,19 @@ public class SelecaoUsuarioActivity extends AppCompatActivity {
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         Button botaoLogarUsuario = new Button(this);
+        botaoLogarUsuario.setTextColor(ContextCompat.getColor(this, R.color.backgroundEditTextWhite));
+        botaoLogarUsuario.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.buttonBaseDeepPurple));
         botaoLogarUsuario.setText(usuario.getNome());
+        botaoLogarUsuario.setTypeface(Typeface.MONOSPACE);
+        botaoLogarUsuario.setTextSize(18);
         botaoLogarUsuario.setPadding(8, 8, 8, 8);
         botaoLogarUsuario.setGravity(Gravity.CENTER);
         botaoLogarUsuario.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        float shadowRadius = 4.0f;
+        float shadowDx = 2.0f;
+        float shadowDy = 2.0f;
+        int shadowColor = Color.parseColor("#000000");
+        botaoLogarUsuario.setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor);
         botaoLogarUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

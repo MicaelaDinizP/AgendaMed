@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +202,8 @@ public class MedicamentoActivity extends AppCompatActivity {
         botaoEditar.setText("Editar");
         botaoEditar.setPadding(8, 8, 8, 8);
         botaoEditar.setGravity(Gravity.CENTER);
-        botaoEditar.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+        botaoEditar.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.backgroundBasePurple));
+        botaoEditar.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

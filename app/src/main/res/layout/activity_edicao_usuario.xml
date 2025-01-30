@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e9e9e9">
+    android:background="@color/backgroundComfyWhite">
 
     <TextView
         android:id="@+id/textViewEditarUsuario"
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="3dp"
         android:layout_marginTop="17dp"
-        android:background="@color/buttonBasePurple"
+        android:background="@color/buttonBaseDeepPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"

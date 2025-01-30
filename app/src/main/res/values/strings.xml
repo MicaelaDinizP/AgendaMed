@@ -7,6 +7,7 @@
         <string name="txt_hint_edit_entry_name">seu nome</string>
         <string name="txt_button_continue">Continuar</string>
 
+        <string name = "txt_splash_text_loading">Carregando ...</string>
 
         <string name="active_user">Usuário Ativo</string>
         <string name="settings">Configurações</string>
@@ -15,6 +16,8 @@
         <string name="medicines">Medicamentos</string>
         <string name="manual">Manual</string>
         <string name="menu_item_spacing"> </string>
+
+        <string name="txt_selecao_usuario">"Selecione um usuário \n para continuar"</string>
 
 
 </resources>

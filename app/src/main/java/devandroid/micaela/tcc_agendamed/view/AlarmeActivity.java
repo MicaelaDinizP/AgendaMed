@@ -91,8 +91,9 @@ public class AlarmeActivity extends AppCompatActivity {
         TableRow.LayoutParams params = new TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
+        params.gravity = Gravity.FILL_HORIZONTAL;
         params.topMargin = 15;
+        params.leftMargin = 20;
         gridLayout.setLayoutParams(params);
 
         gridLayout.setColumnCount(2);
@@ -101,7 +102,7 @@ public class AlarmeActivity extends AppCompatActivity {
         gridLayout.setUseDefaultMargins(true);
         gridLayout.setPadding(8, 8, 8, 8);
 
-        gridLayout.setBackgroundColor(Color.WHITE);
+        gridLayout.setBackgroundColor(getResources().getColor(R.color.backgroundComfyWhite));
 
         TextView textViewNomeMedicamento = new TextView(this);
         textViewNomeMedicamento.setText(med.getNomeMedicamento());
@@ -112,6 +113,7 @@ public class AlarmeActivity extends AppCompatActivity {
         GridLayout.LayoutParams params1 = new GridLayout.LayoutParams();
         params1.rowSpec = GridLayout.spec(0);
         params1.columnSpec = GridLayout.spec(0, 2);
+        textViewNomeMedicamento.setPadding(0,0,0,10);
         textViewNomeMedicamento.setLayoutParams(params1);
         gridLayout.addView(textViewNomeMedicamento);
 
@@ -121,6 +123,7 @@ public class AlarmeActivity extends AppCompatActivity {
         textViewHorariosAlarmes.setTextSize(18);
         textViewHorariosAlarmes.setTextColor(Color.BLACK);
         textViewHorariosAlarmes.setGravity(Gravity.CENTER);
+        textViewHorariosAlarmes.setPadding(90,0,90,0);
         textViewHorariosAlarmes.setTypeface(null, Typeface.ITALIC);
         gridLayout.addView(textViewHorariosAlarmes);
 
@@ -178,6 +181,9 @@ public class AlarmeActivity extends AppCompatActivity {
             isFirst = false;
         }
 
+        if(med.getListaHorarios().size() == 1){
+            horariosOrdenados.append("           ");
+        }
         return horariosOrdenados.toString();
     }
 
