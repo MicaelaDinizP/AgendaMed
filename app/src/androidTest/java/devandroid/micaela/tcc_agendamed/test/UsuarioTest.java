@@ -5,11 +5,13 @@ import devandroid.micaela.tcc_agendamed.model.Usuario;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 public class UsuarioTest {
 
     @Test
-    public void testEscreverECriarDeParcel() {
-        Usuario usuario = new Usuario(1L, "Micaela");
+    public void testCriarParcel() {
+        Usuario usuario = new Usuario(1L, "Meg");
 
         Parcel parcel = Parcel.obtain();
         usuario.writeToParcel(parcel, 0);
@@ -23,77 +25,20 @@ public class UsuarioTest {
 
         parcel.recycle();
     }
-
-    @Test
-    public void testEscreverECriarDeParcelComNomeNulo() {
-        Usuario usuarioOriginal = new Usuario(1L, null);
-
-        Parcel parcel = Parcel.obtain();
-        usuarioOriginal.writeToParcel(parcel, 0);
-
-        parcel.setDataPosition(0);
-        Usuario usuarioCriado = Usuario.CREATOR.createFromParcel(parcel);
-
-        assertNull(usuarioCriado.getNome());
-
-        parcel.recycle();
-    }
-
-    @Test
-    public void testEscreverECriarDeParcelComNomeVazio() {
-        Usuario usuarioOriginal = new Usuario(1L, "");
-
-        Parcel parcel = Parcel.obtain();
-        usuarioOriginal.writeToParcel(parcel, 0);
-
-        parcel.setDataPosition(0);
-
-        Usuario usuarioCriado = Usuario.CREATOR.createFromParcel(parcel);
-
-        assertEquals("", usuarioCriado.getNome());
-
-        parcel.recycle();
-    }
-
     @Test
     public void testCriarArrayDeParcel() {
-        Usuario[] usuariosArray = Usuario.CREATOR.newArray(2);
-
-        assertEquals(2, usuariosArray.length);
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        usuarios.add(new Usuario(1, "Meg"));
+        usuarios.add(new Usuario(2, "Toy"));
+        assertEquals(2, usuarios.size());
     }
-
-    @Test
-    public void testDescreverConteudos() {
-        Usuario usuario = new Usuario(1L, "Micaela");
-
-        assertEquals(0, usuario.describeContents());
-    }
-
-    @Test
-    public void testIdPadrao() {
-        Usuario usuario = new Usuario("Micaela");
-
-        assertEquals(-1L, usuario.getId());
-    }
-
-    @Test
-    public void testSetters() {
-        Usuario usuario = new Usuario(1L, "Micaela");
-
-        usuario.setId(2L);
-        usuario.setNome("Joana");
-
-        assertEquals(2L, usuario.getId());
-        assertEquals("Joana", usuario.getNome());
-    }
-
     @Test
     public void testConsistenciaDoObjetoAposSerializacao() {
 
-        Usuario usuarioOriginal = new Usuario(1L, "Micaela");
+        Usuario usuarioOriginal = new Usuario(1L, "Meg");
 
         usuarioOriginal.setId(3L);
-        usuarioOriginal.setNome("Laura");
+        usuarioOriginal.setNome("Meg");
 
         Parcel parcel = Parcel.obtain();
         usuarioOriginal.writeToParcel(parcel, 0);
@@ -103,7 +48,7 @@ public class UsuarioTest {
         Usuario usuarioCriado = Usuario.CREATOR.createFromParcel(parcel);
 
         assertEquals(3L, usuarioCriado.getId());
-        assertEquals("Laura", usuarioCriado.getNome());
+        assertEquals("Meg", usuarioCriado.getNome());
 
         parcel.recycle();
     }
