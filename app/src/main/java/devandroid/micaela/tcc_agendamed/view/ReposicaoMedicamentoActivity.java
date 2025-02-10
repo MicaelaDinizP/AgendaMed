@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class ReposicaoMedicamentoActivity extends AppCompatActivity {
     private TableLayout tabelaMedicamentos;
+    private ImageButton btnFechar;
     private Button btnSalvarReposicao;
     private List<Medicamento> listaMedicamentos = null;
 
@@ -35,11 +37,18 @@ public class ReposicaoMedicamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repor_medicamento);
 
+        this.btnFechar = findViewById(R.id.btnFechar);
         this.tabelaMedicamentos = findViewById(R.id.tableMedicamentos);
         this.btnSalvarReposicao = findViewById(R.id.btnSalvarReposicao);
         this.medicamentoController = new MedicamentoController(this);
         this.reposicaoCheckBoxes = new HashMap<>();
 
+        this.btnFechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnSalvarReposicao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
