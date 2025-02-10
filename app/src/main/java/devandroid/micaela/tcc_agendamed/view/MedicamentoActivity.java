@@ -144,7 +144,7 @@ public class MedicamentoActivity extends AppCompatActivity {
                 flag.setText("Esgotado");
                 flag.setBackgroundColor(Color.RED);
                 flag.setTextColor(Color.WHITE);
-            } else if (medicamento.getQuantidadeDosesRestantes() < medicamento.getQuantidadeEstoqueCritico()) {
+            } else if (medicamento.getQuantidadeDosesRestantes() <= medicamento.getQuantidadeEstoqueCritico()) {
                 flag.setText("Esgotando");
                 flag.setBackgroundColor(Color.YELLOW);
                 flag.setTextColor(Color.BLACK);
@@ -165,7 +165,7 @@ public class MedicamentoActivity extends AppCompatActivity {
             } else if (medicamento.getQuantidadeDosesRestantes() == 0) {
                 nomeMedicamento.setBackgroundColor(Color.RED);
                 nomeMedicamento.setTextColor(Color.WHITE);
-            } else if (medicamento.getQuantidadeDosesRestantes() < medicamento.getQuantidadeEstoqueCritico()) {
+            } else if (medicamento.getQuantidadeDosesRestantes() <= medicamento.getQuantidadeEstoqueCritico()) {
                 nomeMedicamento.setBackgroundColor(Color.YELLOW);
                 nomeMedicamento.setTextColor(Color.BLACK);
             }
