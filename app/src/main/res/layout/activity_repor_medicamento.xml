@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
-                    android:text="Editar"
+                    android:text="Repor"
                     android:textSize="20dp"/>
             </TableRow>
         </TableLayout>

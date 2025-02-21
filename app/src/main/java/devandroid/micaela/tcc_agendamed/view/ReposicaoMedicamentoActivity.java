@@ -110,7 +110,7 @@ public class ReposicaoMedicamentoActivity extends AppCompatActivity {
         nomeMedicamento.setGravity(Gravity.CENTER);
 
         TextView quantidadeRestante = new TextView(this);
-        quantidadeRestante.setText(String.valueOf(medicamento.getQuantidadeDosesRestantes()));
+        quantidadeRestante.setText("+"+String.valueOf(medicamento.getQuantidadeDosesPorEmbalagem()));
         quantidadeRestante.setGravity(Gravity.CENTER);
 
         CheckBox chkReposicao = new CheckBox(this);

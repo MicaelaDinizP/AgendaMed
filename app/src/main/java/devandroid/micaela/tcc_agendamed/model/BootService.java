@@ -56,6 +56,7 @@ public class BootService extends Service {
         }
         GerenciadorAlarme.criarNotificationChannel(this);
         if (!medicamento.isUsoPausado()) {
+            Log.d("ProgramouAlarme", "Alarme para remedio "+medicamento.getNomeMedicamento()+" foi programaado");
             GerenciadorAlarme.agendarMultiplosAlarmes(this, medicamento);
         }
     }
