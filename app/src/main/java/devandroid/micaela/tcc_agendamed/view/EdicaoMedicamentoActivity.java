@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,7 +27,7 @@ import java.util.List;
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
-import devandroid.micaela.tcc_agendamed.model.GerenciadorAlarme;
+import devandroid.micaela.tcc_agendamed.service.GerenciadorAlarme;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class EdicaoMedicamentoActivity extends AppCompatActivity {

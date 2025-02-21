@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.dao;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.exception.ColecaoUsuariosException;
+import devandroid.micaela.tcc_agendamed.model.Usuario;
 
-public class ColecaoUsuariosEmSQLite implements ColecaoUsuarios{
+public class UsuarioDAOImpl implements UsuarioDAO {
     private final GerenciadorSQLite gerenciadorBancoDeDados;
     private SQLiteDatabase bancoDeDados;
-    public ColecaoUsuariosEmSQLite(Context context){
+    public UsuarioDAOImpl(Context context){
         this.gerenciadorBancoDeDados = new GerenciadorSQLite(context);
     }
 

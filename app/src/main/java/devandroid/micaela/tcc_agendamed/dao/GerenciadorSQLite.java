@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

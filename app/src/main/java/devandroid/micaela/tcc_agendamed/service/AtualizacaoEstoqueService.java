@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.util.Log;
 
 
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
+import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 
 public class AtualizacaoEstoqueService extends Service {

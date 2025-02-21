@@ -1,7 +1,6 @@
 package devandroid.micaela.tcc_agendamed.controller;
 
 import android.content.Context;
-import android.database.SQLException;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,19 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.exception.ColecaoMedicamentosException;
-import devandroid.micaela.tcc_agendamed.model.ColecaoMedicamentos;
-import devandroid.micaela.tcc_agendamed.model.ColecaoMedicamentosEmSQLite;
-import devandroid.micaela.tcc_agendamed.model.ColecaoUsuariosEmSQLite;
+import devandroid.micaela.tcc_agendamed.dao.MedicamentoDAOImpl;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
-import devandroid.micaela.tcc_agendamed.view.MedicamentoActivity;
 
 public class MedicamentoController {
-    private ColecaoMedicamentosEmSQLite colecaoMedicamentos;
+    private MedicamentoDAOImpl colecaoMedicamentos;
     private Context context;
     public MedicamentoController(Context context) {
         this.context = context;
-        this.colecaoMedicamentos = new ColecaoMedicamentosEmSQLite(context);
+        this.colecaoMedicamentos = new MedicamentoDAOImpl(context);
     }
     public void abrirConexao() {
         this.colecaoMedicamentos.open();

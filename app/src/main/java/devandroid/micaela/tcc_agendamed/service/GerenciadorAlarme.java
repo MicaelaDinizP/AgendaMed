@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.service;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -15,9 +15,9 @@ import android.provider.Settings;
 import java.util.Calendar;
 import java.util.List;
 
-import devandroid.micaela.tcc_agendamed.model.AlarmeReceiver;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
+import devandroid.micaela.tcc_agendamed.receiver.AlarmeReceiver;
 
 public class GerenciadorAlarme {
     private static final String CHANNEL_ID = "alarme_channel";

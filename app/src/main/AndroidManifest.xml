@@ -19,11 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TCC_AgendaMed"
         tools:targetApi="31">
-        <service android:name=".model.BootService" />
-        <service android:name=".model.AtualizacaoEstoqueService" />
-        <receiver android:name=".model.AlarmeReceiver" />
-        <receiver android:name=".model.ActionReceiver" android:enabled="true" android:exported="false" />
-        <receiver android:name=".model.BootReceiver" android:enabled="true" android:exported="false">
+        <service android:name=".service.BootService" />
+        <service android:name=".service.AtualizacaoEstoqueService" />
+        <receiver android:name=".receiver.AlarmeReceiver" />
+        <receiver android:name=".receiver.ActionReceiver" android:enabled="true" android:exported="false" />
+        <receiver android:name=".receiver.BootReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />

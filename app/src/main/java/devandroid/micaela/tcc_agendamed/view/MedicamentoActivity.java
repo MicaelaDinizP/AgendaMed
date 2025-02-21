@@ -1,13 +1,9 @@
 package devandroid.micaela.tcc_agendamed.view;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.text.Layout;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +23,6 @@ import java.util.List;
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
-import devandroid.micaela.tcc_agendamed.model.MenuFragment;
-import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class MedicamentoActivity extends AppCompatActivity {
     private Button btnCriarMedicamento;

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.exception.ColecaoUsuariosException;
-import devandroid.micaela.tcc_agendamed.model.ColecaoUsuariosEmSQLite;
+import devandroid.micaela.tcc_agendamed.dao.UsuarioDAOImpl;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioController{
-    private final ColecaoUsuariosEmSQLite colecaoUsuarios;
+    private final UsuarioDAOImpl colecaoUsuarios;
 
     public UsuarioController(Context context) {
-        this.colecaoUsuarios = new ColecaoUsuariosEmSQLite(context);
+        this.colecaoUsuarios = new UsuarioDAOImpl(context);
     }
 
     public void abrirConexao() {

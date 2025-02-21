@@ -3,7 +3,6 @@ package devandroid.micaela.tcc_agendamed.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Medicamento implements Parcelable {

@@ -1,11 +1,10 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,11 +12,14 @@ import java.util.List;
 import java.util.Map;
 
 import devandroid.micaela.tcc_agendamed.exception.ColecaoMedicamentosException;
+import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
+import devandroid.micaela.tcc_agendamed.model.Medicamento;
+import devandroid.micaela.tcc_agendamed.model.Usuario;
 
-public class ColecaoMedicamentosEmSQLite implements ColecaoMedicamentos {
+public class MedicamentoDAOImpl implements MedicamentoDAO {
     private GerenciadorSQLite gerenciadorBancoDeDados;
     private SQLiteDatabase bancoDeDados;
-    public ColecaoMedicamentosEmSQLite(Context context){
+    public MedicamentoDAOImpl(Context context){
         this.gerenciadorBancoDeDados = new GerenciadorSQLite(context);
     }
 

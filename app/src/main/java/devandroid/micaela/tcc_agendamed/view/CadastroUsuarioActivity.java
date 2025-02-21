@@ -1,10 +1,9 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import devandroid.micaela.tcc_agendamed.R;
 
 import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
-import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
     private UsuarioController usuarioController;

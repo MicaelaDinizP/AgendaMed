@@ -1,13 +1,9 @@
 package devandroid.micaela.tcc_agendamed.view;
 
-import static android.widget.GridLayout.HORIZONTAL;
-
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +11,6 @@ import android.widget.GridLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,11 +21,8 @@ import java.util.Set;
 
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
-import devandroid.micaela.tcc_agendamed.model.AlarmeReceiver;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
-import devandroid.micaela.tcc_agendamed.model.GerenciadorAlarme;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
-import devandroid.micaela.tcc_agendamed.model.MenuFragment;
 
 public class AlarmeActivity extends AppCompatActivity {
     private TableLayout tabelaAlarmes;

@@ -22,7 +22,6 @@ import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
-import devandroid.micaela.tcc_agendamed.model.MenuFragment;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class UsuarioActivity extends AppCompatActivity {

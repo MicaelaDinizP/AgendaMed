@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
+
+import devandroid.micaela.tcc_agendamed.model.Medicamento;
+import devandroid.micaela.tcc_agendamed.service.AtualizacaoEstoqueService;
 
 public class ActionReceiver extends BroadcastReceiver {
     @Override

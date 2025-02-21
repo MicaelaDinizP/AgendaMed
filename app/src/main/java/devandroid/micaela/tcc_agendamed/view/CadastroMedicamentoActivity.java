@@ -1,24 +1,13 @@
 package devandroid.micaela.tcc_agendamed.view;
 
 import android.Manifest;
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.AudioAttributes;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,19 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.text.TextWatcher;
 import android.text.Editable;
-import devandroid.micaela.tcc_agendamed.model.AlarmeReceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.R;
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.model.DiaDaSemana;
-import devandroid.micaela.tcc_agendamed.model.GerenciadorAlarme;
+import devandroid.micaela.tcc_agendamed.service.GerenciadorAlarme;
 import devandroid.micaela.tcc_agendamed.model.Medicamento;
 
 public class CadastroMedicamentoActivity extends AppCompatActivity {

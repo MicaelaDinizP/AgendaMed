@@ -1,4 +1,4 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.receiver;
 
 import android.Manifest;
 import android.app.PendingIntent;
@@ -6,13 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
-import android.media.RingtoneManager;
-import androidx.core.app.NotificationCompat.BigTextStyle;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import devandroid.micaela.tcc_agendamed.model.Medicamento;
+import devandroid.micaela.tcc_agendamed.receiver.ActionReceiver;
 
 public class AlarmeReceiver extends BroadcastReceiver {
 

@@ -1,8 +1,7 @@
-package devandroid.micaela.tcc_agendamed.model;
+package devandroid.micaela.tcc_agendamed.service;
 
 import android.Manifest;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -16,6 +15,8 @@ import java.util.List;
 
 import devandroid.micaela.tcc_agendamed.controller.MedicamentoController;
 import devandroid.micaela.tcc_agendamed.controller.UsuarioController;
+import devandroid.micaela.tcc_agendamed.model.Medicamento;
+import devandroid.micaela.tcc_agendamed.model.Usuario;
 
 public class BootService extends Service {
     private UsuarioController usuarioController;
