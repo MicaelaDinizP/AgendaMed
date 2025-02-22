@@ -101,9 +101,7 @@ public class MedicamentoActivity extends AppCompatActivity {
     }
 
     public void obterMedicamentosCadastrados(){
-        this.medicamentoController.abrirConexao();
         this.listaMedicamentos = this.medicamentoController.obterTodos(MainActivity.USUARIO_LOGADO);
-        this.medicamentoController.fecharConexao();
     }
     public void desenharTabela(){
         for (Medicamento med : this.listaMedicamentos) {

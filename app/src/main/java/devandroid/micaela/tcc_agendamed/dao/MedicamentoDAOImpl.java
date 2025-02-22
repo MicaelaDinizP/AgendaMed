@@ -23,18 +23,19 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
         this.gerenciadorBancoDeDados = new GerenciadorSQLite(context);
     }
 
-    public void open() {
+    private void open() {
         this.bancoDeDados = gerenciadorBancoDeDados.getWritableDatabase();
     }
 
-    public void close() {
+    private void close() {
         gerenciadorBancoDeDados.close();
     }
 
     public long inserir(Medicamento medicamento) {
+        this.open();
         long idMedicamento = -1;
-        this.bancoDeDados.beginTransaction();
         try {
+            this.bancoDeDados.beginTransaction();
             ContentValues dadosMedicamento = new ContentValues();
             dadosMedicamento.put(GerenciadorSQLite.COLUMN_NOME, medicamento.getNomeMedicamento());
             dadosMedicamento.put(GerenciadorSQLite.COLUMN_USUARIO_ID, medicamento.getUsuario().getId());
@@ -68,10 +69,12 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             throw new ColecaoMedicamentosException("Não foi possível inserir o registro: " + e.getMessage(), e);
         }finally {
             this.bancoDeDados.endTransaction();
+            this.close();
         }
         return idMedicamento;
     }
     public List<Medicamento> obterTodos(Usuario usuario) {
+        this.open();
         Map<Integer, Medicamento> medicamentoMap = new HashMap<>();
         Cursor cursor = null;
         try {
@@ -135,12 +138,14 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             if (cursor != null) {
                 cursor.close();
             }
+            this.close();
         }
 
         return new ArrayList<>(medicamentoMap.values());
     }
 
     public Medicamento obterPorId(long id, Usuario usuario) {
+        this.open();
         Medicamento medicamento = null;
         Cursor cursor = null;
 
@@ -205,11 +210,13 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             if (cursor != null) {
                 cursor.close();
             }
+            this.close();
         }
 
         return medicamento;
     }
     public Medicamento obterPorNome(String nome, Usuario usuario) {
+        this.open();
         Medicamento medicamento = null;
         try {
             String query = "SELECT " +
@@ -270,22 +277,18 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             cursor.close();
         } catch (SQLException e) {
             throw new ColecaoMedicamentosException("Não foi possível buscar o registro: " + e.getMessage(), e);
+        }finally {
+            this.close();
         }
         return medicamento;
     }
     public long editar(Medicamento medicamento) {
         long novoId = -1;
-        bancoDeDados.beginTransaction();
         try {
-            int rowsAffected = bancoDeDados.delete(
-                    GerenciadorSQLite.TABLE_MEDICAMENTO,
-                    GerenciadorSQLite.COLUMN_ID + " = ?",
-                    new String[]{String.valueOf(medicamento.getId())}
-            );
+            boolean rowsAffected = this.remover(medicamento.getId());
 
-            if (rowsAffected > 0) {
+            if (rowsAffected == true) {
                 novoId = this.inserir(medicamento);
-                bancoDeDados.setTransactionSuccessful();
             } else {
                 throw new IllegalStateException("Erro ao editar medicamento: nenhum registro foi encontrado para remoção.");
             }
@@ -293,13 +296,12 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             throw new ColecaoMedicamentosException("" + e.getMessage(), e);
         } catch (Exception e) {
             throw new ColecaoMedicamentosException("Não foi possível editar o registro: " + e.getMessage(), e);
-        } finally {
-            bancoDeDados.endTransaction();
         }
         return novoId;
     }
 
     public boolean remover(long id) {
+        this.open();
         boolean statusRemocao = false;
         bancoDeDados.beginTransaction();
         try {
@@ -321,6 +323,7 @@ public class MedicamentoDAOImpl implements MedicamentoDAO {
             throw new ColecaoMedicamentosException("Não foi possível remover o registro: " + e.getMessage(), e);
         } finally {
             bancoDeDados.endTransaction();
+            this.close();
             return statusRemocao;
         }
     }

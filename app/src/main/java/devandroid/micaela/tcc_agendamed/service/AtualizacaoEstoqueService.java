@@ -14,13 +14,9 @@ public class AtualizacaoEstoqueService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         MedicamentoController medicamentoController = new MedicamentoController(this);
-        medicamentoController.abrirConexao();
-
         Medicamento medicamento = intent.getParcelableExtra("medicamento");
         medicamento.setQuantidadeDosesRestantes(medicamento.getQuantidadeDosesRestantes()-1);
         medicamentoController.editar(medicamento);
-        Log.d("atualizacao", ""+medicamento.getUsuario().getNome()+" - "+medicamento.getUsuario().getId());
-        medicamentoController.fecharConexao();
         return START_STICKY;
     }
 

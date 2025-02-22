@@ -19,13 +19,6 @@ public class MedicamentoController {
         this.context = context;
         this.colecaoMedicamentos = new MedicamentoDAOImpl(context);
     }
-    public void abrirConexao() {
-        this.colecaoMedicamentos.open();
-    }
-
-    public void fecharConexao() {
-        this.colecaoMedicamentos.close();
-    }
     public List<Medicamento> obterTodos(Usuario usuario){
         List<Medicamento> listaMed = new ArrayList<>();
         try{

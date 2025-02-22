@@ -50,7 +50,6 @@ public class EdicaoUsuarioActivity extends AppCompatActivity {
                     Toast.makeText(EdicaoUsuarioActivity.this, "ERRO: Não é possível excluir o usuario ativo", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                usuarioController.abrirConexao();
                 boolean foiRemovido = usuarioController.remover(usuario.getId());
                 if(foiRemovido) {
                     Toast.makeText(EdicaoUsuarioActivity.this, "Usuario removido com sucesso!", Toast.LENGTH_SHORT).show();
@@ -58,7 +57,6 @@ public class EdicaoUsuarioActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(EdicaoUsuarioActivity.this, "ERRO: Não foi possível remover o usuário", Toast.LENGTH_SHORT).show();
                 }
-                usuarioController.fecharConexao();
             }
         });
 
@@ -66,7 +64,6 @@ public class EdicaoUsuarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuarioController.abrirConexao();
                 usuario.setNome(editTextNomeUsuario.getText().toString());
                 boolean foiEditado = usuarioController.editar(usuario);
                 if(foiEditado){
@@ -75,7 +72,6 @@ public class EdicaoUsuarioActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(EdicaoUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
                 }
-                usuarioController.fecharConexao();
             }
         });
     }

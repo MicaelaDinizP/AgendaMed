@@ -26,8 +26,6 @@ public class BootService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         this.usuarioController = new UsuarioController(this);
         this.medicamentoController = new MedicamentoController(this);
-        medicamentoController.abrirConexao();
-        usuarioController.abrirConexao();
         this.listaUsuarios = new ArrayList<>();
         List<Medicamento> listaMedicamentos = new ArrayList<>();
         obterUsuarios();
@@ -39,8 +37,6 @@ public class BootService extends Service {
                 }
             }
         }
-        medicamentoController.fecharConexao();
-        usuarioController.fecharConexao();
         return START_STICKY;
     }
 

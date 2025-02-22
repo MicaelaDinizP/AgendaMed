@@ -20,26 +20,30 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         this.gerenciadorBancoDeDados = new GerenciadorSQLite(context);
     }
 
-    public void open() {
+    private void open() {
         this.bancoDeDados = gerenciadorBancoDeDados.getWritableDatabase();
     }
 
-    public void close() {
+    private void close() {
         gerenciadorBancoDeDados.close();
     }
     @Override
     public long inserir(String nome) {
+        this.open();
         ContentValues values = new ContentValues();
         try {
             values.put(GerenciadorSQLite.COLUMN_NOME, nome);
             return this.bancoDeDados.insert(GerenciadorSQLite.TABLE_USUARIO, null, values);
         } catch (SQLException e) {
             throw new ColecaoUsuariosException("Não foi possível inserir o registro: " + e.getMessage(), e);
+        }finally {
+            this.close();
         }
     }
 
     @Override
     public List<Usuario> obterTodos() {
+        this.open();
         List<Usuario> usuarios = new ArrayList<>();
         try {
             Cursor cursor = this.bancoDeDados.query(GerenciadorSQLite.TABLE_USUARIO,
@@ -57,10 +61,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return usuarios;
         } catch(SQLException e) {
             throw new ColecaoUsuariosException("Não foi possível obter todos os registros: " + e.getMessage(), e);
+        }finally {
+            this.close();
         }
     }
     @Override
     public boolean editar(Usuario usuario) {
+        this.open();
         ContentValues values = new ContentValues();
         try {
             int linhasAfetadas;
@@ -69,16 +76,21 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             return linhasAfetadas > 0;
         } catch(SQLException e) {
             throw new ColecaoUsuariosException("Não foi possível editar o registro: " + e.getMessage(), e);
+        }finally {
+            this.close();
         }
     }
     @Override
     public boolean remover(long id) {
+        this.open();
         try {
             int linhasAfetadas;
             linhasAfetadas = this.bancoDeDados.delete(GerenciadorSQLite.TABLE_USUARIO, GerenciadorSQLite.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
             return linhasAfetadas > 0;
         } catch (SQLException e) {
             throw new ColecaoUsuariosException("Não foi possível excluir o registro: " + e.getMessage(), e);
+        }finally {
+            this.close();
         }
     }
 }

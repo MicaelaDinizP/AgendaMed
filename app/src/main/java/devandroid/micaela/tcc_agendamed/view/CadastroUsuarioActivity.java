@@ -48,7 +48,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuarioController.abrirConexao();
                 String nomeUsuario = editTextNomeUsuario.getText().toString();
                 long idRetornado = usuarioController.inserir(nomeUsuario);
                 if(idRetornado >0){
@@ -57,7 +56,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(CadastroUsuarioActivity.this, "ERRO: Não foi possível cadastrar o usuario." , Toast.LENGTH_SHORT).show();
                 }
-                usuarioController.fecharConexao();
             }
         });
     }

@@ -76,9 +76,7 @@ public class UsuarioActivity extends AppCompatActivity {
         }
     }
     public void obterUsuariosCadastrados(){
-        this.usuarioController.abrirConexao();
         this.listaUsuarios = this.usuarioController.obterTodos();
-        this.usuarioController.fecharConexao();
     }
     public void desenharTabela(){
         for (Usuario usuario : this.listaUsuarios) {

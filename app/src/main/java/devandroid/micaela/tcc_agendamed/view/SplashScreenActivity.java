@@ -19,7 +19,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         UsuarioController usuarioController = new UsuarioController(this);
-        usuarioController.abrirConexao();
         List<Usuario> listaUsuarios = usuarioController.obterTodos();
 
         if(listaUsuarios.isEmpty()){

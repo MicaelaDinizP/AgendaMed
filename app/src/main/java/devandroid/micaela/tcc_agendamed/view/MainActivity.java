@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 USUARIO_LOGADO = new Usuario(editNomeUsuarioInicial.getText().toString());
 
-                usuarioController.abrirConexao();
                 long idUsuarioInicial = usuarioController.inserir(USUARIO_LOGADO.getNome());
                 if(idUsuarioInicial == -1){
                     exibirMensagem("ERRO: Falha ao cadastrar o usuário inicial.");
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
                     startActivity(intent);
                  }
-                usuarioController.fecharConexao();
+
             }
         });
 

@@ -31,7 +31,6 @@ public class SelecaoUsuarioActivity extends AppCompatActivity {
 
         this.usuarioController = new UsuarioController(this);
         this.tabelaLoginUsuario = findViewById(R.id.tableLoginUsuario);
-        this.usuarioController.abrirConexao();
         this.listaUsuarios = this.usuarioController.obterTodos();
         if(this.listaUsuarios.isEmpty()){
             Toast.makeText(SelecaoUsuarioActivity.this, "Erro ao carregar o aplicativo." , Toast.LENGTH_SHORT).show();

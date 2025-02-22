@@ -65,9 +65,7 @@ public class ReposicaoMedicamentoActivity extends AppCompatActivity {
 
     private void carregarMedicamentos() {
         this.listaMedicamentos = new ArrayList<>();
-        this.medicamentoController.abrirConexao();
         this.listaMedicamentos = this.medicamentoController.obterTodos(MainActivity.USUARIO_LOGADO);
-        this.medicamentoController.fecharConexao();
 
         if (listaMedicamentos.isEmpty()) {
             recriarMensagemTabelaVazia();
@@ -124,7 +122,6 @@ public class ReposicaoMedicamentoActivity extends AppCompatActivity {
     }
 
     private void salvarReposicao() {
-        medicamentoController.abrirConexao();
         for (Medicamento medicamento : listaMedicamentos) {
             CheckBox chk = reposicaoCheckBoxes.get(medicamento);
             if (chk != null && chk.isChecked()) {
@@ -134,7 +131,6 @@ public class ReposicaoMedicamentoActivity extends AppCompatActivity {
                 medicamentoController.editar(medicamento);
             }
         }
-        medicamentoController.fecharConexao();
 
         Toast.makeText(this, "Reposição salva com sucesso!", Toast.LENGTH_SHORT).show();
         finish();

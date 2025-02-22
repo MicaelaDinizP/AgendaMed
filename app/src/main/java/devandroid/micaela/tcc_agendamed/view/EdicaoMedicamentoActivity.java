@@ -104,7 +104,6 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
         btnApagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                medicamentoController.abrirConexao();
                 boolean foiRemovido = medicamentoController.remover(medicamentoParaEditar.getId());
                 if(foiRemovido) {
                     Toast.makeText(EdicaoMedicamentoActivity.this, "Medicamento removido com sucesso!", Toast.LENGTH_SHORT).show();
@@ -112,7 +111,6 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Não foi possível remover o medicamento", Toast.LENGTH_SHORT).show();
                 }
-                medicamentoController.fecharConexao();
                 finish();
             }
         });
@@ -133,7 +131,6 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                             listaDeDiasDaSemana, qtdDosesPorDia, qtdEstoqueCritico, qtdDosesRestantes, checkBoxPausarUso.isChecked(),
                             checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
                     medicamento.setId(medicamentoParaEditar.getId());
-                    medicamentoController.abrirConexao();
                     long idRetornado = medicamentoController.editar(medicamento);
                     medicamento.setId(idRetornado);
                     if(idRetornado != -1){
@@ -145,7 +142,6 @@ public class EdicaoMedicamentoActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Não foi possível alterar o medicamento." , Toast.LENGTH_SHORT).show();
                     }
-                    medicamentoController.fecharConexao();
                 }else{
                     Toast.makeText(EdicaoMedicamentoActivity.this, "ERRO: Campos obrigatórios não preenchidos." , Toast.LENGTH_SHORT).show();
                 }

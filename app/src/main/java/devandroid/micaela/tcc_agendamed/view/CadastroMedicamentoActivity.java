@@ -116,7 +116,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                     Medicamento medicamento = new Medicamento(nomeMedicamento, MainActivity.USUARIO_LOGADO, qtdDosesPorEmbalagem,
                             listaDeDiasDaSemana, qtdDosesPorDia, qtdEstoqueCritico, qtdDosesRestantes, checkBoxPausarUso.isChecked(),
                             checkBoxCriarAlarme.isChecked(), checkBoxCriarAlarme.isChecked(), listaHorarios);
-                    medicamentoController.abrirConexao();
                     long idRetornado = medicamentoController.inserir(medicamento);
                     medicamento.setId(idRetornado);
                     Log.d("ERROO", "idRetornado é: "+idRetornado);
@@ -129,7 +128,6 @@ public class CadastroMedicamentoActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(CadastroMedicamentoActivity.this, "ERRO: Não foi possível cadastrar o medicamento." , Toast.LENGTH_SHORT).show();
                     }
-                    medicamentoController.fecharConexao();
                 }else{
                     Toast.makeText(CadastroMedicamentoActivity.this, "ERRO: Campos obrigatórios não preenchidos." , Toast.LENGTH_SHORT).show();
                 }

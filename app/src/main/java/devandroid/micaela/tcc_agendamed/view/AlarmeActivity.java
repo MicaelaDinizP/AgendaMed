@@ -213,9 +213,7 @@ public class AlarmeActivity extends AppCompatActivity {
     }
 
     public void obterMedicamentosCadastrados(){
-        this.medicamentoController.abrirConexao();
         this.listaMedicamentos = this.medicamentoController.obterTodos(MainActivity.USUARIO_LOGADO);
-        this.medicamentoController.fecharConexao();
     }
     private void limparTabela() {
         int childCount = this.tabelaAlarmes.getChildCount();
