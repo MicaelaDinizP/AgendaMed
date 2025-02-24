@@ -55,7 +55,7 @@ public class UsuarioController {
         try{
             return this.colecaoUsuarios.remover(id);
         }catch(ColecaoUsuariosException e){
-            exibirErro("Erro ao remover o usuário.", e);
+            this.exibirErro("Erro ao remover o usuário.", e);
             return false;
         }
     }
