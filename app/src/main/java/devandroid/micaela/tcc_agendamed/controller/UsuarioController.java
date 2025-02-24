@@ -2,62 +2,71 @@ package devandroid.micaela.tcc_agendamed.controller;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import devandroid.micaela.tcc_agendamed.dao.UsuarioDAO;
 import devandroid.micaela.tcc_agendamed.exception.ColecaoUsuariosException;
 import devandroid.micaela.tcc_agendamed.dao.UsuarioDAOImpl;
 import devandroid.micaela.tcc_agendamed.model.Usuario;
 
-public class UsuarioController{
-    private final UsuarioDAOImpl colecaoUsuarios;
+public class UsuarioController {
+    private final UsuarioDAO colecaoUsuarios;
+    private Context context;
 
-    public UsuarioController(Context context) {
+    public UsuarioController(@NonNull Context context) {
         this.colecaoUsuarios = new UsuarioDAOImpl(context);
+        this.context = context;
     }
-    public long inserir(String nome) {
-        long idRetornado = -1;
+
+    public long inserir(@NonNull String nome) {
         if (nome == null || nome.trim().isEmpty()) {
             Log.e(this.colecaoUsuarios.getClass().getName(), "Nome de usuário inválido.");
             return -1;
         }
         try{
-            idRetornado = this.colecaoUsuarios.inserir(nome);
+            return this.colecaoUsuarios.inserir(nome);
         }catch(ColecaoUsuariosException e){
-            Log.e(this.colecaoUsuarios.getClass().getName(), "Erro ao inserir usuário.", e);
+            this.exibirErro("Erro ao inserir usuário.", e);
+            return -1;
         }
-        return idRetornado;
     }
 
     public List<Usuario> obterTodos() {
-        List<Usuario> usuarios = new ArrayList<>();
         try{
-            usuarios = this.colecaoUsuarios.obterTodos();
+           return this.colecaoUsuarios.obterTodos();
         }catch(ColecaoUsuariosException e){
-            Log.e(this.colecaoUsuarios.getClass().getName(), "Erro ao obter todos usuários.", e);
+            this.exibirErro("Erro ao obter todos usuários.", e);
+            return Collections.emptyList();
         }
-        return usuarios;
     }
 
-    public boolean editar(Usuario usuario) {
-        boolean foiEditado = false;
+    public boolean editar( @NonNull Usuario usuario) {
         try{
-            foiEditado = this.colecaoUsuarios.editar(usuario);
+            return this.colecaoUsuarios.editar(usuario);
         }catch(ColecaoUsuariosException e){
-            Log.e(this.colecaoUsuarios.getClass().getName(), "Erro ao editar o usuário.", e);
+            this.exibirErro("Erro ao editar o usuário.", e);
+            return false;
         }
-        return foiEditado;
     }
 
     public boolean remover(long id) {
-        boolean foiRemovido = false;
         try{
-            foiRemovido = this.colecaoUsuarios.remover(id);
+            return this.colecaoUsuarios.remover(id);
         }catch(ColecaoUsuariosException e){
-            Log.e(this.colecaoUsuarios.getClass().getName(), "Erro ao remover o usuário.", e);
+            exibirErro("Erro ao remover o usuário.", e);
+            return false;
         }
-        return foiRemovido;
+    }
+
+    private void exibirErro( @NonNull String mensagem, @NonNull Exception e){
+        Toast.makeText(this.context, mensagem , Toast.LENGTH_SHORT).show();
+        Log.e(this.colecaoUsuarios.getClass().getName(), mensagem, e);
     }
 
 }
