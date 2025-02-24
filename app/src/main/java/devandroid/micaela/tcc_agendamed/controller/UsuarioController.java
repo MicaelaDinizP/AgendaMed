@@ -25,10 +25,6 @@ public class UsuarioController {
     }
 
     public long inserir(@NonNull String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            Log.e(this.colecaoUsuarios.getClass().getName(), "Nome de usuário inválido.");
-            return -1;
-        }
         try{
             return this.colecaoUsuarios.inserir(nome);
         }catch(ColecaoUsuariosException e){
@@ -59,7 +55,7 @@ public class UsuarioController {
         try{
             return this.colecaoUsuarios.remover(id);
         }catch(ColecaoUsuariosException e){
-            exibirErro("Erro ao remover o usuário.", e);
+            this.exibirErro("Erro ao remover o usuário.", e);
             return false;
         }
     }
