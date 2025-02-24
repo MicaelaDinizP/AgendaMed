@@ -34,16 +34,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 USUARIO_LOGADO = new Usuario(editNomeUsuarioInicial.getText().toString());
 
-                long idUsuarioInicial = usuarioController.inserir(USUARIO_LOGADO.getNome());
-                if(idUsuarioInicial == -1){
-                    exibirMensagem("ERRO: Falha ao cadastrar o usuário inicial.");
+                if (USUARIO_LOGADO != null && !USUARIO_LOGADO.getNome().trim().isEmpty()) {
+                    long idUsuarioInicial = usuarioController.inserir(USUARIO_LOGADO.getNome());
+                    if (idUsuarioInicial == -1) {
+                        exibirMensagem("ERRO: Falha ao cadastrar o usuário inicial.");
+                    } else {
+                        USUARIO_LOGADO.setId(idUsuarioInicial);
+                        exibirMensagem("O usuário: '" + USUARIO_LOGADO.getNome() + "' foi cadastrado!");
+                        Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
+                        startActivity(intent);
+                    }
                 }else{
-                    USUARIO_LOGADO.setId(idUsuarioInicial);
-                    exibirMensagem("O usuário: '"+USUARIO_LOGADO.getNome()+"' foi cadastrado!");
-                    Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
-                    startActivity(intent);
-                 }
-
+                    exibirMensagem("ERRO: O usuário foi digitado incorretamente.");
+                }
             }
         });
 

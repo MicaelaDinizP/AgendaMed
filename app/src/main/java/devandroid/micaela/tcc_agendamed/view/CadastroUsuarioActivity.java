@@ -49,14 +49,21 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nomeUsuario = editTextNomeUsuario.getText().toString();
-                long idRetornado = usuarioController.inserir(nomeUsuario);
-                if(idRetornado >0){
-                    Toast.makeText(CadastroUsuarioActivity.this, "Usuario "+nomeUsuario+" cadastrado com sucesso!" , Toast.LENGTH_SHORT).show();
-                    finish();
+                if (nomeUsuario != null && !nomeUsuario.trim().isEmpty()) {
+                    long idRetornado = usuarioController.inserir(nomeUsuario);
+                    if(idRetornado >0){
+                        Toast.makeText(CadastroUsuarioActivity.this, "Usuario "+nomeUsuario+" cadastrado com sucesso!" , Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        Toast.makeText(CadastroUsuarioActivity.this, "ERRO: Não foi possível cadastrar o usuario." , Toast.LENGTH_SHORT).show();
+                    }
                 }else{
-                    Toast.makeText(CadastroUsuarioActivity.this, "ERRO: Não foi possível cadastrar o usuario." , Toast.LENGTH_SHORT).show();
+                    exibirMensagem("ERRO: O usuário foi digitado incorretamente.");
                 }
             }
         });
+    }
+    public void exibirMensagem(String mensagem){
+        Toast.makeText(CadastroUsuarioActivity.this, "" + mensagem + "" , Toast.LENGTH_SHORT).show();
     }
 }

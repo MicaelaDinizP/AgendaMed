@@ -65,14 +65,21 @@ public class EdicaoUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 usuario.setNome(editTextNomeUsuario.getText().toString());
-                boolean foiEditado = usuarioController.editar(usuario);
-                if(foiEditado){
-                    Toast.makeText(EdicaoUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
-                    finish();
+                if (usuario.getNome() != null && !usuario.getNome().trim().isEmpty()) {
+                    boolean foiEditado = usuarioController.editar(usuario);
+                    if (foiEditado) {
+                        Toast.makeText(EdicaoUsuarioActivity.this, "Usuário editado com sucesso!", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(EdicaoUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
+                    }
                 }else{
-                    Toast.makeText(EdicaoUsuarioActivity.this, "Não foi possível editar o usuario.", Toast.LENGTH_LONG).show();
+                    exibirMensagem("ERRO: O usuário foi digitado incorretamente.");
                 }
             }
         });
+    }
+    public void exibirMensagem(String mensagem){
+        Toast.makeText(EdicaoUsuarioActivity.this, "" + mensagem + "" , Toast.LENGTH_SHORT).show();
     }
 }
